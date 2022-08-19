@@ -19,10 +19,15 @@ namespace ProjectSight.API.SampleApp
 {
     public class APIClient : ClientProxyBase
     {
-        private const string TID_ENDPOINT = "https://id.trimble.com";
+        private const string TID_ENDPOINT_PROD = "https://id.trimble.com";
+        private const string TID_ENDPOINT_STAGING = "https://stage.id.trimblecloud.com";
 
-        public const string PROJECTSIGHT_ENDPOINT = "https://cloud.api.trimble.com/projectsight/us1/1.0";
-        public const string PROJECTSIGHT_EU_ENDPOINT = "https://cloud.api.trimble.com/projectsight/eu1/1.0";
+        public const string PROJECTSIGHT_ENDPOINT_PROD = "https://cloud.api.trimble.com/projectsight/us1/1.0";
+        public const string PROJECTSIGHT_EU_ENDPOINT_PROD = "https://cloud.api.trimble.com/projectsight/eu1/1.0";
+        public const string PROJECTSIGHT_AZURE_ENDPOINT_TEST = "https://cloud.qa.api.trimblecloud.com/projectsight/ops1/1.0";
+
+        public const string TID_ENDPOINT = TID_ENDPOINT_PROD;
+        public const string PROJECTSIGHT_ENDPOINT = PROJECTSIGHT_ENDPOINT_PROD;
 
         // *** this will be called by TID`s redirect ***
         // care should be taken that the given URL will not cause unwanted behavior on the test system
