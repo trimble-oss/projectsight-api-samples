@@ -35,11 +35,11 @@ namespace ProjectSight.API.SampleApp
             {
                 if (chkPromptUser.Checked)
                 {
-                    await _apiClient.GenerateUserAccessToken(txtClientID.Text, txtClientSecret.Text, txtApplicationName.Text);
+                    await _apiClient.GenerateUserAccessToken(txtClientID.Text, txtClientSecret.Text, txtApplicationName.Text, txtAPIKey.Text);
                 }
                 else
                 {
-                    await _apiClient.GenerateApplicationAccessToken(txtClientID.Text, txtClientSecret.Text, txtApplicationName.Text);
+                    await _apiClient.GenerateApplicationAccessToken(txtClientID.Text, txtClientSecret.Text, txtApplicationName.Text, txtAPIKey.Text);
                 }
             }
 

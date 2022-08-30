@@ -73,6 +73,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.txtOnBehalfOf = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtAPIKey = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -135,7 +137,7 @@
             // 
             // btnGetPortfolios
             // 
-            this.btnGetPortfolios.Location = new System.Drawing.Point(258, 97);
+            this.btnGetPortfolios.Location = new System.Drawing.Point(258, 158);
             this.btnGetPortfolios.Name = "btnGetPortfolios";
             this.btnGetPortfolios.Size = new System.Drawing.Size(44, 23);
             this.btnGetPortfolios.TabIndex = 3;
@@ -145,7 +147,7 @@
             // 
             // txtClientID
             // 
-            this.txtClientID.Location = new System.Drawing.Point(258, 44);
+            this.txtClientID.Location = new System.Drawing.Point(12, 91);
             this.txtClientID.Name = "txtClientID";
             this.txtClientID.Size = new System.Drawing.Size(241, 20);
             this.txtClientID.TabIndex = 1;
@@ -153,6 +155,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label14);
+            this.groupBox1.Controls.Add(this.txtAPIKey);
             this.groupBox1.Controls.Add(this.chkPromptUser);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtApplicationName);
@@ -163,7 +167,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(800, 70);
+            this.groupBox1.Size = new System.Drawing.Size(800, 117);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Credentials";
@@ -171,7 +175,7 @@
             // chkPromptUser
             // 
             this.chkPromptUser.AutoSize = true;
-            this.chkPromptUser.Location = new System.Drawing.Point(157, 24);
+            this.chkPromptUser.Location = new System.Drawing.Point(539, 47);
             this.chkPromptUser.Name = "chkPromptUser";
             this.chkPromptUser.Size = new System.Drawing.Size(69, 17);
             this.chkPromptUser.TabIndex = 14;
@@ -184,9 +188,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(9, 28);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(110, 13);
+            this.label3.Size = new System.Drawing.Size(90, 13);
             this.label3.TabIndex = 13;
-            this.label3.Text = "API Application Name";
+            this.label3.Text = "Application Name";
             // 
             // txtApplicationName
             // 
@@ -199,15 +203,15 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(502, 28);
+            this.label2.Location = new System.Drawing.Point(256, 75);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 13);
+            this.label2.Size = new System.Drawing.Size(88, 13);
             this.label2.TabIndex = 11;
-            this.label2.Text = "Client Secret";
+            this.label2.Text = "Consumer Secret";
             // 
             // txtClientSecret
             // 
-            this.txtClientSecret.Location = new System.Drawing.Point(505, 44);
+            this.txtClientSecret.Location = new System.Drawing.Point(259, 91);
             this.txtClientSecret.Name = "txtClientSecret";
             this.txtClientSecret.PasswordChar = '*';
             this.txtClientSecret.Size = new System.Drawing.Size(241, 20);
@@ -217,17 +221,17 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(255, 28);
+            this.label1.Location = new System.Drawing.Point(9, 75);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
+            this.label1.Size = new System.Drawing.Size(75, 13);
             this.label1.TabIndex = 9;
-            this.label1.Text = "Client ID";
+            this.label1.Text = "Consumer Key";
             // 
             // cboPortfolios
             // 
             this.cboPortfolios.DisplayMember = "Name";
             this.cboPortfolios.FormattingEnabled = true;
-            this.cboPortfolios.Location = new System.Drawing.Point(12, 97);
+            this.cboPortfolios.Location = new System.Drawing.Point(12, 158);
             this.cboPortfolios.Name = "cboPortfolios";
             this.cboPortfolios.Size = new System.Drawing.Size(241, 21);
             this.cboPortfolios.TabIndex = 4;
@@ -237,7 +241,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 81);
+            this.label4.Location = new System.Drawing.Point(12, 142);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(50, 13);
             this.label4.TabIndex = 14;
@@ -246,7 +250,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(318, 83);
+            this.label5.Location = new System.Drawing.Point(318, 144);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(45, 13);
             this.label5.TabIndex = 17;
@@ -256,7 +260,7 @@
             // 
             this.cboProjects.DisplayMember = "Name";
             this.cboProjects.FormattingEnabled = true;
-            this.cboProjects.Location = new System.Drawing.Point(318, 99);
+            this.cboProjects.Location = new System.Drawing.Point(318, 160);
             this.cboProjects.Name = "cboProjects";
             this.cboProjects.Size = new System.Drawing.Size(241, 21);
             this.cboProjects.TabIndex = 6;
@@ -266,7 +270,7 @@
             // btnGetProjects
             // 
             this.btnGetProjects.Enabled = false;
-            this.btnGetProjects.Location = new System.Drawing.Point(564, 99);
+            this.btnGetProjects.Location = new System.Drawing.Point(564, 160);
             this.btnGetProjects.Name = "btnGetProjects";
             this.btnGetProjects.Size = new System.Drawing.Size(44, 23);
             this.btnGetProjects.TabIndex = 5;
@@ -277,7 +281,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 135);
+            this.label6.Location = new System.Drawing.Point(12, 196);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 13);
             this.label6.TabIndex = 20;
@@ -287,7 +291,7 @@
             // 
             this.cboCompanies.DisplayMember = "Name";
             this.cboCompanies.FormattingEnabled = true;
-            this.cboCompanies.Location = new System.Drawing.Point(12, 151);
+            this.cboCompanies.Location = new System.Drawing.Point(12, 212);
             this.cboCompanies.Name = "cboCompanies";
             this.cboCompanies.Size = new System.Drawing.Size(194, 21);
             this.cboCompanies.TabIndex = 19;
@@ -296,7 +300,7 @@
             // btnLoadCompanies
             // 
             this.btnLoadCompanies.Enabled = false;
-            this.btnLoadCompanies.Location = new System.Drawing.Point(212, 151);
+            this.btnLoadCompanies.Location = new System.Drawing.Point(212, 212);
             this.btnLoadCompanies.Name = "btnLoadCompanies";
             this.btnLoadCompanies.Size = new System.Drawing.Size(44, 23);
             this.btnLoadCompanies.TabIndex = 18;
@@ -307,7 +311,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 184);
+            this.label7.Location = new System.Drawing.Point(12, 245);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 13);
             this.label7.TabIndex = 23;
@@ -317,7 +321,7 @@
             // 
             this.cboLookupLists.DisplayMember = "Name";
             this.cboLookupLists.FormattingEnabled = true;
-            this.cboLookupLists.Location = new System.Drawing.Point(12, 200);
+            this.cboLookupLists.Location = new System.Drawing.Point(12, 261);
             this.cboLookupLists.Name = "cboLookupLists";
             this.cboLookupLists.Size = new System.Drawing.Size(194, 21);
             this.cboLookupLists.TabIndex = 22;
@@ -327,7 +331,7 @@
             // btnLoadLookupLists
             // 
             this.btnLoadLookupLists.Enabled = false;
-            this.btnLoadLookupLists.Location = new System.Drawing.Point(212, 200);
+            this.btnLoadLookupLists.Location = new System.Drawing.Point(212, 261);
             this.btnLoadLookupLists.Name = "btnLoadLookupLists";
             this.btnLoadLookupLists.Size = new System.Drawing.Size(44, 23);
             this.btnLoadLookupLists.TabIndex = 21;
@@ -338,7 +342,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(262, 186);
+            this.label8.Location = new System.Drawing.Point(262, 247);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(138, 13);
             this.label8.TabIndex = 26;
@@ -348,7 +352,7 @@
             // 
             this.cboPortfolioLookupListEntries.DisplayMember = "Description";
             this.cboPortfolioLookupListEntries.FormattingEnabled = true;
-            this.cboPortfolioLookupListEntries.Location = new System.Drawing.Point(262, 202);
+            this.cboPortfolioLookupListEntries.Location = new System.Drawing.Point(262, 263);
             this.cboPortfolioLookupListEntries.Name = "cboPortfolioLookupListEntries";
             this.cboPortfolioLookupListEntries.Size = new System.Drawing.Size(194, 21);
             this.cboPortfolioLookupListEntries.TabIndex = 25;
@@ -357,7 +361,7 @@
             // btnLoadPortfolioLookupListEntries
             // 
             this.btnLoadPortfolioLookupListEntries.Enabled = false;
-            this.btnLoadPortfolioLookupListEntries.Location = new System.Drawing.Point(462, 202);
+            this.btnLoadPortfolioLookupListEntries.Location = new System.Drawing.Point(462, 263);
             this.btnLoadPortfolioLookupListEntries.Name = "btnLoadPortfolioLookupListEntries";
             this.btnLoadPortfolioLookupListEntries.Size = new System.Drawing.Size(44, 23);
             this.btnLoadPortfolioLookupListEntries.TabIndex = 24;
@@ -368,7 +372,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(262, 137);
+            this.label9.Location = new System.Drawing.Point(262, 198);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(141, 13);
             this.label9.TabIndex = 29;
@@ -378,7 +382,7 @@
             // 
             this.cboProjectRFIWorkflowStates.DisplayMember = "Name";
             this.cboProjectRFIWorkflowStates.FormattingEnabled = true;
-            this.cboProjectRFIWorkflowStates.Location = new System.Drawing.Point(262, 153);
+            this.cboProjectRFIWorkflowStates.Location = new System.Drawing.Point(262, 214);
             this.cboProjectRFIWorkflowStates.Name = "cboProjectRFIWorkflowStates";
             this.cboProjectRFIWorkflowStates.Size = new System.Drawing.Size(194, 21);
             this.cboProjectRFIWorkflowStates.TabIndex = 28;
@@ -387,7 +391,7 @@
             // btnLoadProjectRFIWorkflowStates
             // 
             this.btnLoadProjectRFIWorkflowStates.Enabled = false;
-            this.btnLoadProjectRFIWorkflowStates.Location = new System.Drawing.Point(462, 153);
+            this.btnLoadProjectRFIWorkflowStates.Location = new System.Drawing.Point(462, 214);
             this.btnLoadProjectRFIWorkflowStates.Name = "btnLoadProjectRFIWorkflowStates";
             this.btnLoadProjectRFIWorkflowStates.Size = new System.Drawing.Size(44, 23);
             this.btnLoadProjectRFIWorkflowStates.TabIndex = 27;
@@ -398,7 +402,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(512, 139);
+            this.label10.Location = new System.Drawing.Point(512, 200);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(54, 13);
             this.label10.TabIndex = 32;
@@ -408,7 +412,7 @@
             // 
             this.cboRFIUDFs.DisplayMember = "DBName";
             this.cboRFIUDFs.FormattingEnabled = true;
-            this.cboRFIUDFs.Location = new System.Drawing.Point(512, 155);
+            this.cboRFIUDFs.Location = new System.Drawing.Point(512, 216);
             this.cboRFIUDFs.Name = "cboRFIUDFs";
             this.cboRFIUDFs.Size = new System.Drawing.Size(194, 21);
             this.cboRFIUDFs.TabIndex = 31;
@@ -417,7 +421,7 @@
             // btnLoadRFIUDFs
             // 
             this.btnLoadRFIUDFs.Enabled = false;
-            this.btnLoadRFIUDFs.Location = new System.Drawing.Point(712, 155);
+            this.btnLoadRFIUDFs.Location = new System.Drawing.Point(712, 216);
             this.btnLoadRFIUDFs.Name = "btnLoadRFIUDFs";
             this.btnLoadRFIUDFs.Size = new System.Drawing.Size(44, 23);
             this.btnLoadRFIUDFs.TabIndex = 30;
@@ -428,7 +432,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(512, 188);
+            this.label11.Location = new System.Drawing.Point(512, 249);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(64, 13);
             this.label11.TabIndex = 35;
@@ -438,7 +442,7 @@
             // 
             this.cboRFIReports.DisplayMember = "DisplayDescription";
             this.cboRFIReports.FormattingEnabled = true;
-            this.cboRFIReports.Location = new System.Drawing.Point(512, 204);
+            this.cboRFIReports.Location = new System.Drawing.Point(512, 265);
             this.cboRFIReports.Name = "cboRFIReports";
             this.cboRFIReports.Size = new System.Drawing.Size(194, 21);
             this.cboRFIReports.TabIndex = 34;
@@ -447,7 +451,7 @@
             // btnLoadRFIReports
             // 
             this.btnLoadRFIReports.Enabled = false;
-            this.btnLoadRFIReports.Location = new System.Drawing.Point(712, 204);
+            this.btnLoadRFIReports.Location = new System.Drawing.Point(712, 265);
             this.btnLoadRFIReports.Name = "btnLoadRFIReports";
             this.btnLoadRFIReports.Size = new System.Drawing.Size(44, 23);
             this.btnLoadRFIReports.TabIndex = 33;
@@ -503,7 +507,7 @@
             this.groupBox2.Controls.Add(this.btnCreateRFIOnBehalfOfUser);
             this.groupBox2.Controls.Add(this.btnCreateRFIOnBehalfOfContact);
             this.groupBox2.Controls.Add(this.btnCreateRFIOnBehalfOfContactID);
-            this.groupBox2.Location = new System.Drawing.Point(1, 321);
+            this.groupBox2.Location = new System.Drawing.Point(1, 382);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(799, 68);
             this.groupBox2.TabIndex = 40;
@@ -534,12 +538,28 @@
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.btnCreateRFIWithUDFs);
             this.groupBox3.Controls.Add(this.btnCreateRFIWithExternalFile);
-            this.groupBox3.Location = new System.Drawing.Point(0, 229);
+            this.groupBox3.Location = new System.Drawing.Point(0, 290);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(800, 86);
             this.groupBox3.TabIndex = 41;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Records";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(256, 28);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(138, 13);
+            this.label14.TabIndex = 16;
+            this.label14.Text = "Package && Usage Plan Key";
+            // 
+            // txtAPIKey
+            // 
+            this.txtAPIKey.Location = new System.Drawing.Point(259, 44);
+            this.txtAPIKey.Name = "txtAPIKey";
+            this.txtAPIKey.Size = new System.Drawing.Size(241, 20);
+            this.txtAPIKey.TabIndex = 15;
             // 
             // Form1
             // 
@@ -633,6 +653,8 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtOnBehalfOf;
         private System.Windows.Forms.CheckBox chkPromptUser;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtAPIKey;
     }
 }
 

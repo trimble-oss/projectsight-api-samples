@@ -11,6 +11,12 @@
     <PlatformTarget>x64</PlatformTarget>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;IDE1006</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;IDE1006</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>

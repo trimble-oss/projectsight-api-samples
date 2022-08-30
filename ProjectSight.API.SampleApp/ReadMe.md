@@ -1,4 +1,8 @@
-﻿The user interface supports authenticating with Trimble Identity in two different ways:
+﻿This sample application is used to demonstrate how to authenticate with Trimble Identity v4 and execute API requests against API-X (api.trimblepaas.com).
+
+This will be the primary method of interacting with the ProjectSight API for external consumers until the API external marketplace becomes available in 2023.
+
+The user interface supports authenticating with Trimble Identity in two different ways:
 
 * As an application (when the "As User?" checkbox is unchecked). 
 

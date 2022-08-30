@@ -22,18 +22,19 @@ namespace ProjectSight.API.SampleApp
         private const string TID_ENDPOINT_PROD = "https://id.trimble.com";
         private const string TID_ENDPOINT_STAGING = "https://stage.id.trimblecloud.com";
 
-        public const string PROJECTSIGHT_ENDPOINT_PROD = "https://cloud.api.trimble.com/projectsight/us1/1.0";
-        public const string PROJECTSIGHT_EU_ENDPOINT_PROD = "https://cloud.api.trimble.com/projectsight/eu1/1.0";
-        public const string PROJECTSIGHT_AZURE_ENDPOINT_TEST = "https://cloud.qa.api.trimblecloud.com/projectsight/ops1/1.0";
+        public const string PROJECTSIGHT_ENDPOINT_PROD = "https://api-usw2.trimblepaas.com/projectsight-v1.0";
+        public const string PROJECTSIGHT_EU_ENDPOINT_PROD = "https://api-usw2.trimblepaas.com/projectsight-eu-v1.0";
+        public const string PROJECTSIGHT_AZURE_ENDPOINT_TEST = "";  // ?
+        public const string PROJECTSIGHT_ENDPOINT_FEA2 = "https://api-stg-ap1.trimblepaas.com/x-projectsight-fea2-v1.0";
 
-        public const string TID_ENDPOINT = TID_ENDPOINT_PROD;
-        public const string PROJECTSIGHT_ENDPOINT = PROJECTSIGHT_ENDPOINT_PROD;
+        public const string TID_ENDPOINT = TID_ENDPOINT_STAGING;
+        public const string PROJECTSIGHT_ENDPOINT = PROJECTSIGHT_ENDPOINT_FEA2;
 
         // *** this will be called by TID`s redirect ***
         // care should be taken that the given URL will not cause unwanted behavior on the test system
         private const string REDIRECT_URI = "http://127.0.0.1";
 
-
+        private string m_APIKey;
         private string m_AccessToken;
 
         private static HttpClient _client = new HttpClient();
@@ -54,6 +55,10 @@ namespace ProjectSight.API.SampleApp
         protected override void PrepareRequest(HttpRequestMessage request)
         {
             request.Headers.Add("Authorization", $"Bearer {m_AccessToken}");
+            if (!string.IsNullOrEmpty(m_APIKey))
+            {
+                request.Headers.Add("x-api-key", m_APIKey);
+            }
         }
 
         /// <summary>
@@ -62,17 +67,20 @@ namespace ProjectSight.API.SampleApp
         /// </summary>
         /// <param name="clientKey">The API Application Client ID</param>
         /// <param name="clientSecret">The API Application Client Secret</param>
-        /// <param name="apiApplicationName">The API Application Name</param>
+        /// <param name="applicationName">The API Application Name</param>
+        /// <param name="apiKey">The API Package & Usage Plan Key</param>
         /// <returns></returns>
-        public async Task<string> GenerateApplicationAccessToken(string clientKey, string clientSecret, string apiApplicationName)
+        public async Task<string> GenerateApplicationAccessToken(string clientKey, string clientSecret, string applicationName, string apiKey)
         {
-            if (string.IsNullOrWhiteSpace(clientKey) || string.IsNullOrWhiteSpace(clientSecret) || string.IsNullOrWhiteSpace(apiApplicationName))
+            if (string.IsNullOrWhiteSpace(clientKey) || string.IsNullOrWhiteSpace(clientSecret) || string.IsNullOrWhiteSpace(applicationName) || string.IsNullOrWhiteSpace(apiKey))
             {
-                MessageBox.Show($"{nameof(clientKey)}, {nameof(clientSecret)}, and {nameof(apiApplicationName)} must all be specified.", "Parameter Error", MessageBoxButtons.OK);
+                MessageBox.Show($"{nameof(clientKey)}, {nameof(clientSecret)}, {nameof(applicationName)}, and {nameof(apiKey)} must all be specified.", "Parameter Error", MessageBoxButtons.OK);
                 return null;
             }
 
-            m_AccessToken = await GetApplicationAccessTokenFromTID(clientKey, clientSecret, apiApplicationName);
+            m_APIKey = apiKey;
+
+            m_AccessToken = await GetApplicationAccessTokenFromTID(clientKey, clientSecret, applicationName);
 
             return m_AccessToken;
         }
@@ -83,16 +91,18 @@ namespace ProjectSight.API.SampleApp
         /// </summary>
         /// <param name="clientKey">The API Application Client ID</param>
         /// <param name="clientSecret">The API Application Client Secret</param>
-        /// <param name="apiApplicationName">The API Application Name</param>
-        /// <param name="clearExistingTokenIfSet">Set to true if any existing token needs to be cleared</param>
+        /// <param name="applicationName">The API Application Name</param>
+        /// <param name="apiKey">The API Package & Usage Plan Key</param>
         /// <returns></returns>
-        public async Task<string> GenerateUserAccessToken(string clientKey, string clientSecret, string applicationName)
+        public async Task<string> GenerateUserAccessToken(string clientKey, string clientSecret, string applicationName, string apiKey)
         {
-            if (string.IsNullOrWhiteSpace(clientKey) || string.IsNullOrWhiteSpace(clientSecret))
+            if (string.IsNullOrWhiteSpace(clientKey) || string.IsNullOrWhiteSpace(clientSecret) || string.IsNullOrWhiteSpace(applicationName) || string.IsNullOrWhiteSpace(apiKey))
             {
-                MessageBox.Show($"{nameof(clientKey)} and {nameof(clientSecret)} must be specified.", "Parameter Error", MessageBoxButtons.OK);
+                MessageBox.Show($"{nameof(clientKey)}, {nameof(clientSecret)}, {nameof(applicationName)}, and {nameof(apiKey)} must all be specified.", "Parameter Error", MessageBoxButtons.OK);
                 return null;
             }
+
+            m_APIKey = apiKey;
 
             m_AccessToken = await GetUserAccessTokenFromTID(clientKey, clientSecret, applicationName);
 
