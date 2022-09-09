@@ -83,6 +83,7 @@ namespace ProjectSight.API.SampleApp
         {
             ClearProjectsList();
             ClearCompaniesList();
+            ClearUsersList();
             ClearUDFs();
             ClearReports();
             ClearLookupLists();
@@ -187,6 +188,29 @@ namespace ProjectSight.API.SampleApp
         }
 
         #endregion // Companies
+
+        #region Users
+
+        private async void btnLoadUsers_Click(object sender, EventArgs e)
+        {
+            var client = await GetAPIClient();
+            var records = await client.GetUserListAsync<User>(CurrentPortfolioId);
+            if (_apiClient.VerifyResponseIsOk())
+            {
+                cboUsers.DataSource = records;
+                MessageBox.Show($"Retrieved {records.Count} users");
+            }
+        }
+
+        private void ClearUsersList()
+        {
+            btnLoadUsers.Enabled = cboPortfolios.Items.Count > 0;
+
+            cboUsers.SelectedItem = null;
+            cboUsers.DataSource = new List<User>();
+        }
+
+        #endregion // Users
 
         #region WorkflowStates
 

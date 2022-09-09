@@ -36,6 +36,8 @@
             this.btnGetPortfolios = new System.Windows.Forms.Button();
             this.txtClientID = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtAPIKey = new System.Windows.Forms.TextBox();
             this.chkPromptUser = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtApplicationName = new System.Windows.Forms.TextBox();
@@ -73,8 +75,9 @@
             this.label13 = new System.Windows.Forms.Label();
             this.txtOnBehalfOf = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txtAPIKey = new System.Windows.Forms.TextBox();
+            this.cboUsers = new System.Windows.Forms.ComboBox();
+            this.btnLoadUsers = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -137,7 +140,7 @@
             // 
             // btnGetPortfolios
             // 
-            this.btnGetPortfolios.Location = new System.Drawing.Point(258, 158);
+            this.btnGetPortfolios.Location = new System.Drawing.Point(212, 156);
             this.btnGetPortfolios.Name = "btnGetPortfolios";
             this.btnGetPortfolios.Size = new System.Drawing.Size(44, 23);
             this.btnGetPortfolios.TabIndex = 3;
@@ -171,6 +174,22 @@
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Credentials";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(256, 28);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(138, 13);
+            this.label14.TabIndex = 16;
+            this.label14.Text = "Package && Usage Plan Key";
+            // 
+            // txtAPIKey
+            // 
+            this.txtAPIKey.Location = new System.Drawing.Point(259, 44);
+            this.txtAPIKey.Name = "txtAPIKey";
+            this.txtAPIKey.Size = new System.Drawing.Size(241, 20);
+            this.txtAPIKey.TabIndex = 15;
             // 
             // chkPromptUser
             // 
@@ -233,7 +252,7 @@
             this.cboPortfolios.FormattingEnabled = true;
             this.cboPortfolios.Location = new System.Drawing.Point(12, 158);
             this.cboPortfolios.Name = "cboPortfolios";
-            this.cboPortfolios.Size = new System.Drawing.Size(241, 21);
+            this.cboPortfolios.Size = new System.Drawing.Size(194, 21);
             this.cboPortfolios.TabIndex = 4;
             this.cboPortfolios.ValueMember = "PortfolioID";
             this.cboPortfolios.SelectedIndexChanged += new System.EventHandler(this.cboPortfolios_SelectedIndexChanged);
@@ -250,7 +269,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(318, 144);
+            this.label5.Location = new System.Drawing.Point(262, 142);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(45, 13);
             this.label5.TabIndex = 17;
@@ -260,9 +279,9 @@
             // 
             this.cboProjects.DisplayMember = "Name";
             this.cboProjects.FormattingEnabled = true;
-            this.cboProjects.Location = new System.Drawing.Point(318, 160);
+            this.cboProjects.Location = new System.Drawing.Point(262, 158);
             this.cboProjects.Name = "cboProjects";
-            this.cboProjects.Size = new System.Drawing.Size(241, 21);
+            this.cboProjects.Size = new System.Drawing.Size(194, 21);
             this.cboProjects.TabIndex = 6;
             this.cboProjects.ValueMember = "PortfolioID";
             this.cboProjects.SelectedIndexChanged += new System.EventHandler(this.cboProjects_SelectedIndexChanged);
@@ -270,7 +289,7 @@
             // btnGetProjects
             // 
             this.btnGetProjects.Enabled = false;
-            this.btnGetProjects.Location = new System.Drawing.Point(564, 160);
+            this.btnGetProjects.Location = new System.Drawing.Point(462, 156);
             this.btnGetProjects.Name = "btnGetProjects";
             this.btnGetProjects.Size = new System.Drawing.Size(44, 23);
             this.btnGetProjects.TabIndex = 5;
@@ -545,27 +564,44 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Records";
             // 
-            // label14
+            // cboUsers
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(256, 28);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(138, 13);
-            this.label14.TabIndex = 16;
-            this.label14.Text = "Package && Usage Plan Key";
+            this.cboUsers.DisplayMember = "UserName";
+            this.cboUsers.FormattingEnabled = true;
+            this.cboUsers.Location = new System.Drawing.Point(512, 156);
+            this.cboUsers.Name = "cboUsers";
+            this.cboUsers.Size = new System.Drawing.Size(194, 21);
+            this.cboUsers.TabIndex = 43;
+            this.cboUsers.ValueMember = "ID";
             // 
-            // txtAPIKey
+            // btnLoadUsers
             // 
-            this.txtAPIKey.Location = new System.Drawing.Point(259, 44);
-            this.txtAPIKey.Name = "txtAPIKey";
-            this.txtAPIKey.Size = new System.Drawing.Size(241, 20);
-            this.txtAPIKey.TabIndex = 15;
+            this.btnLoadUsers.Enabled = false;
+            this.btnLoadUsers.Location = new System.Drawing.Point(712, 156);
+            this.btnLoadUsers.Name = "btnLoadUsers";
+            this.btnLoadUsers.Size = new System.Drawing.Size(44, 23);
+            this.btnLoadUsers.TabIndex = 42;
+            this.btnLoadUsers.Text = "Load";
+            this.btnLoadUsers.UseVisualStyleBackColor = true;
+            this.btnLoadUsers.Click += new System.EventHandler(this.btnLoadUsers_Click);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(512, 140);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(34, 13);
+            this.label15.TabIndex = 44;
+            this.label15.Text = "Users";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.cboUsers);
+            this.Controls.Add(this.btnLoadUsers);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.cboRFIReports);
             this.Controls.Add(this.btnLoadRFIReports);
@@ -655,6 +691,9 @@
         private System.Windows.Forms.CheckBox chkPromptUser;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtAPIKey;
+        private System.Windows.Forms.ComboBox cboUsers;
+        private System.Windows.Forms.Button btnLoadUsers;
+        private System.Windows.Forms.Label label15;
     }
 }
 
