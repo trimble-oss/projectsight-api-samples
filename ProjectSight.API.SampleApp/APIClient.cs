@@ -24,12 +24,14 @@ namespace ProjectSight.API.SampleApp
 
         public const string PROJECTSIGHT_ENDPOINT_PROD = "https://api-usw2.trimblepaas.com/projectsight-v1.0";
         public const string PROJECTSIGHT_EU_ENDPOINT_PROD = "https://api-usw2.trimblepaas.com/projectsight-eu-v1.0";
-        public const string PROJECTSIGHT_AZURE_ENDPOINT_TEST = "https://api-stg-ap1.trimblepaas.com/projectsightops1-v1.0";
-        public const string PROJECTSIGHT_ENDPOINT_FEA2 = "https://api-stg-ap1.trimblepaas.com/x-projectsight-fea2-v1.0";
         public const string PROJECTSIGHT_AZURE_ENDPOINT_PROD = "https://api-usw2.trimblepaas.com/projectsight-us2-v1.0";
 
+        public const string PROJECTSIGHT_ENDPOINT_STAGING = "https://api-usw2.trimblepaas.com/projectsight-staging-v1.0";
+        public const string PROJECTSIGHT_ENDPOINT_FEA2 = "https://api-stg-ap1.trimblepaas.com/x-projectsight-fea2-v1.0";
+        public const string PROJECTSIGHT_AZURE_ENDPOINT_TEST = "https://api-stg-ap1.trimblepaas.com/projectsightops1-v1.0";
+
         public const string TID_ENDPOINT = TID_ENDPOINT_PROD;
-        public const string PROJECTSIGHT_ENDPOINT = PROJECTSIGHT_AZURE_ENDPOINT_PROD;
+        public const string PROJECTSIGHT_ENDPOINT = PROJECTSIGHT_ENDPOINT_STAGING;
 
         // *** this will be called by TID`s redirect ***
         // care should be taken that the given URL will not cause unwanted behavior on the test system
