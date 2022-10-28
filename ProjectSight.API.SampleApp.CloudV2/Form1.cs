@@ -59,6 +59,11 @@ namespace ProjectSight.API.SampleApp
             var records = await client.GetPortfolioListAsync(System.Threading.CancellationToken.None);
             if (_apiClient.VerifyResponseIsOk())
             {
+                foreach (var record in records)
+                {
+                    record.Name += $" ({record.PortfolioID})";
+                }
+
                 cboPortfolios.DataSource = records;
                 MessageBox.Show($"Retrieved {records.Count} portfolios");
 
@@ -120,6 +125,11 @@ namespace ProjectSight.API.SampleApp
             var records = await client.GetProjectListOnlyAsync(CurrentPortfolioId);
             if (_apiClient.VerifyResponseIsOk())
             {
+                foreach (var record in records)
+                {
+                    record.Name += $" ({record.ProjectID})";
+                }
+
                 cboProjects.DataSource = records;
                 MessageBox.Show($"Retrieved {records.Count} projects");
 
