@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "ad980a9b-8a46-4bb7-9353-dea3baaa71b8",
+		"name": "ProjectSight APIv2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5829259"
+	},
+	"item": [
+		{
+			"name": "Get Portfolios",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/portfolios",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"portfolios"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "client_authentication",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{OAuthClientID}}",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "{{OAuthSecret}}",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "{{OAuthUrl}}",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "client_credentials",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "TID v4",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://cloud.dev.api.trimblecloud.com/ebuilder/projectsight/karl/v1.0"
+		},
+		{
+			"key": "OAuthUrl",
+			"value": "https://stage.id.trimblecloud.com/oauth/token"
+		},
+		{
+			"key": "OAuthClientID",
+			"value": "8c6a3996-318f-4b6f-b45d-3a63504600e4"
+		},
+		{
+			"key": "OAuthSecret",
+			"value": "24dbcdacae7d4904969e4c608fe4d612"
+		}
+	]
+}

@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "8a54d5b7-3f84-4b7e-ab18-501f1e745117",
+		"name": "ProjectSight API-X",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "5829259"
+	},
+	"item": [
+		{
+			"name": "Portfolios",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{PackageAndUsagePlanKey}}",
+						"type": "text"
+					}
+				],
+				"url": "https://api-usw2.trimblepaas.com/projectsight-v1.0/portfolios"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": {
+			"scope": "{{ApplicationName}}",
+			"clientSecret": "{{ConsumerSecret}}",
+			"clientId": "{{ConsumerKey}}",
+			"accessTokenUrl": "https://id.trimble.com/oauth/token",
+			"client_authentication": "header",
+			"grant_type": "client_credentials",
+			"tokenName": "TID v4",
+			"addTokenTo": "header"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ConsumerKey",
+			"value": ""
+		},
+		{
+			"key": "ConsumerSecret",
+			"value": ""
+		},
+		{
+			"key": "ApplicationName",
+			"value": ""
+		},
+		{
+			"key": "PackageAndUsagePlanKey",
+			"value": ""
+		}
+	]
+}
