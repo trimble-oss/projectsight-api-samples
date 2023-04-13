@@ -1,7 +1,5 @@
 ﻿This set of sample applications is designed to demonstrate the three primary methods that are available to connect to the ProjectSight API and to demonstrate some basic functionality and some more advanced techniques.
 
-ProjectSight.API.SampleApp.TIDv3 is for older applications that use Trimble Identity (TID) v3 to connect to API applications hosted in API-X (https://api.trimblepaas.com). TIDv3 will be turned off at the end of 2022, so this should not be used for any purpose other than troubleshooting problems in existing applications.
-
 ProjectSight.API.SampleApp is for applications that use TID v4 to connect to API applications hosted in API-X (https://api.trimblepaas.com). This is the most applicable sample for most API consumers.
 
 ProjectSight.API.SampleApp.CloudV2 is for applications use API applications hosted in Cloud v2 (https://console.trimble.com/home). This API host is only available to Trimble employees at this time. However, there are some integrations that are hosted in Cloud v2, such as that used to integrate ProjectSight with Viewpoint applications.
