@@ -21561,6 +21561,144 @@
         }
       }
     },
+    "/{portfolioGuid}/{projectId}/jobCosts/bulkOriginId": {
+      "post": {
+        "tags": [
+          "JobCosts"
+        ],
+        "summary": "Creates/Updates multiple records using originId to locate existing records, both JobCosts and JobCostItems, to update",
+        "description": "Use of this endpoint indicates that the integrator is using OriginId as the unique key for JobCosts records in a project\r\nand OriginId as the unique key for JobCostItems records in a JobCosts record.\r\n            \r\nIf a record, JobCost or JobCostItem, is sent without an originId, the request will be rejected with a 403.\r\n            \r\nIf more than one JobCost record shares the same originId, the request will be rejected with a 403.\r\n            \r\nIf more than one JobCostItem record shares the same originId within a JobCost record, the request will be rejected with a 403.\r\n            \r\nReturns the created/updated JobCosts records that the user has access to within the specified portfolio and project",
+        "operationId": "JobCosts_PostBulkOriginId",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio Primary Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project Primary Key",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "List of records",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/JobCosts"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/JobCosts"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/JobCosts"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/JobCosts"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the created/updated JobCosts records along with the status of the request and the error code and message in the event of a failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JobCostsBulkUpsertResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JobCostsBulkUpsertResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{portfolioGuid}/jobCosts/query": {
       "post": {
         "tags": [
@@ -43878,6 +44016,11 @@
             "type": "string",
             "nullable": true
           },
+          "ERPIntegrated": {
+            "type": "boolean",
+            "description": "This flag is intended for the use of AppXChange to indicate when a Budget record has been successfully integrated with the ERP",
+            "nullable": true
+          },
           "IsApproved": {
             "type": "boolean",
             "readOnly": true
@@ -53094,6 +53237,11 @@
           "Amount": {
             "type": "number",
             "format": "double",
+            "nullable": true
+          },
+          "OriginID": {
+            "maxLength": 100,
+            "type": "string",
             "nullable": true
           },
           "ProjectID": {
