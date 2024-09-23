@@ -21697,6 +21697,142 @@
             }
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "JobCosts"
+        ],
+        "summary": "Deletes multiple records using originId to locate existing records to delete",
+        "description": "Use of this endpoint indicates that the integrator is using OriginId as the unique key for JobCosts records in a project\r\n            \r\nReturns the result of deletion",
+        "operationId": "JobCosts_DeleteBulkOriginId",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio Primary Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project Primary Key",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "List of job cost origin ids",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "For each primary key in the original list, returns the primary key, success or failure, and the error code and message when an error code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BulkDeleteResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BulkDeleteResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/{portfolioGuid}/jobCosts/query": {
@@ -29931,7 +30067,7 @@
           "Project"
         ],
         "summary": "Creates Project using the specified parameters",
-        "description": "It is extremely important to note that the API gateway has a timeout of 55 seconds.\r\nIf this request is for creating a project from a template and the template project is using Trimble Connect as the File Library, then it is possible\r\nfor the request to take longer than 55 seconds.\r\n            \r\nBecause of this, it highly recommend that the InitiateProjectCreation endpoint be used instead.",
+        "description": "It is extremely important to note that the API gateway has a timeout of 29 seconds.\r\nIf this request is for creating a project from a template and the template project is using Trimble Connect as the File Library, then it is possible\r\nfor the request to take longer than 29 seconds.\r\n            \r\nBecause of this, it highly recommend that the createRequest endpoint be used instead.",
         "operationId": "Project_CreateProjectWithParameters",
         "parameters": [
           {
@@ -44025,6 +44161,25 @@
             "type": "boolean",
             "readOnly": true
           },
+          "SofVItemID": {
+            "type": "integer",
+            "description": "A link to a ContractSchedOfValues item in a Prime Contract. Only settable through the API",
+            "format": "int32",
+            "nullable": true
+          },
+          "ContractItem": {
+            "maxLength": 570,
+            "type": "string",
+            "description": "Based on SofVItemId: [Contract.Number]-[ContractSchedOfValues.ItemNumber] - [ContractSchedOfValues.Description]",
+            "nullable": true,
+            "readOnly": true
+          },
+          "ContractID": {
+            "type": "integer",
+            "description": "The primary key of the contract that SofVItemID belongs to",
+            "format": "int32",
+            "readOnly": true
+          },
           "WorkflowState": {
             "type": "integer",
             "format": "int32"
@@ -45028,6 +45183,30 @@
             "type": "boolean",
             "readOnly": true
           },
+          "SofVItemID": {
+            "type": "integer",
+            "description": "A link to a ContractSchedOfValues item in a Prime Contract.",
+            "format": "int32",
+            "readOnly": true
+          },
+          "ContractItem": {
+            "maxLength": 570,
+            "type": "string",
+            "description": "Based on SofVItemId: [Contract.Number]-[ContractSchedOfValues.ItemNumber] - [ContractSchedOfValues.Description]",
+            "nullable": true,
+            "readOnly": true
+          },
+          "ContractID": {
+            "type": "integer",
+            "description": "The primary key of the contract that SofVItemID belongs to",
+            "format": "int32",
+            "readOnly": true
+          },
+          "ERPIntegrated": {
+            "type": "boolean",
+            "description": "This flag is intended for the use of AppXChange to indicate when a Budget snapshot record has been successfully integrated with the ERP",
+            "readOnly": true
+          },
           "WorkflowStatePermissionLevel": {
             "type": "integer",
             "format": "int32",
@@ -45603,6 +45782,16 @@
           "PercentCompleteHours": {
             "type": "number",
             "format": "double",
+            "nullable": true
+          },
+          "ERPIntegrationStatus": {
+            "enum": [
+              "NotIntegrated",
+              "Requested",
+              "Successful",
+              "Failed"
+            ],
+            "type": "string",
             "nullable": true
           }
         },
@@ -53321,8 +53510,7 @@
           "Type": {
             "enum": [
               "None",
-              "SubcontractInvoice",
-              "GeneralInvoice",
+              "CommitmentInvoice",
               "Expense",
               "Payroll"
             ],
@@ -53333,17 +53521,12 @@
             "minLength": 1,
             "type": "string"
           },
-          "Date": {
+          "Month": {
             "type": "string",
             "format": "date",
             "nullable": true
           },
-          "ReceivedDate": {
-            "type": "string",
-            "format": "date",
-            "nullable": true
-          },
-          "PaidDate": {
+          "ActualDate": {
             "type": "string",
             "format": "date",
             "nullable": true
@@ -53363,6 +53546,11 @@
             "type": "string",
             "nullable": true,
             "readOnly": true
+          },
+          "ExtCompanyName": {
+            "maxLength": 100,
+            "type": "string",
+            "nullable": true
           },
           "OriginID": {
             "maxLength": 100,
@@ -54912,6 +55100,11 @@
             "minLength": 1,
             "type": "string"
           },
+          "LastActivityDate": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
           "Disabled": {
             "type": "boolean",
             "description": "This will be set to true if the Portfolio has been disabled",
@@ -54937,10 +55130,6 @@
             "readOnly": true
           },
           "TCToDos": {
-            "type": "boolean",
-            "readOnly": true
-          },
-          "ProjectExport": {
             "type": "boolean",
             "readOnly": true
           },
@@ -56709,6 +56898,11 @@
           },
           "WindowsTimeZone": {
             "maxLength": 100,
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "LastActivityDate": {
             "type": "string",
             "nullable": true,
             "readOnly": true
@@ -61343,6 +61537,10 @@
             "type": "boolean",
             "readOnly": true
           },
+          "MarketingConsent": {
+            "type": "boolean",
+            "readOnly": true
+          },
           "LastActivityDate": {
             "type": "string",
             "nullable": true,
@@ -61435,6 +61633,32 @@
           },
           "IsDefault": {
             "type": "boolean",
+            "nullable": true
+          },
+          "CanInviteTeamMemberFromAnyCompany": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "CanInviteTeamMemberFromTheirCompany": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "CanInviteTeamMemberFromAllRoles": {
+            "enum": [
+              "None",
+              "Some",
+              "All"
+            ],
+            "type": "string",
+            "nullable": true
+          },
+          "CanRemoveTeamMemberFromAllRoles": {
+            "enum": [
+              "None",
+              "Some",
+              "All"
+            ],
+            "type": "string",
             "nullable": true
           },
           "WhenCreated": {
