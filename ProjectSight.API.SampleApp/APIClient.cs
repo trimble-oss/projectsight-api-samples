@@ -31,7 +31,7 @@ namespace ProjectSight.API.SampleApp
         public const string PROJECTSIGHT_AZURE_ENDPOINT_TEST = "https://api-stg-ap1.trimblepaas.com/projectsightops1-v1.0";
 
         public const string TID_ENDPOINT = TID_ENDPOINT_PROD;
-        public const string PROJECTSIGHT_ENDPOINT = PROJECTSIGHT_ENDPOINT_STAGING;
+        public const string PROJECTSIGHT_ENDPOINT = PROJECTSIGHT_ENDPOINT_PROD;
 
         // *** this will be called by TID`s redirect ***
         // care should be taken that the given URL will not cause unwanted behavior on the test system
