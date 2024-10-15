@@ -14733,6 +14733,549 @@
         }
       }
     },
+    "/{workspaceId}/erpCompanies": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves the list of ERP Companies for the specified workspace from the ERP cache",
+        "operationId": "ERPReadOnly_GetCompanies",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "The workspace id to retrieve records for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the set of records that were found for the workspaceId.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPCompany"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPCompany"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{workspaceId}/erpCompanies/{id}": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves one ERP Company from the ERP cache",
+        "operationId": "ERPReadOnly_GetCompany",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "The workspace id to retrieve the record from",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The primary key of the record to retrieve",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the record that was found with the specified id, if any.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPCompany"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPCompany"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{workspaceId}/erpProjects": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves the list of ERP Projects for the specified workspace from the ERP cache",
+        "operationId": "ERPReadOnly_GetProjects",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "The workspace id to retrieve records for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the set of records that were found for the workspaceId.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPProject"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPProject"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{workspaceId}/erpProjects/{id}": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves one ERP Project from the ERP cache",
+        "operationId": "ERPReadOnly_GetProject",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "The workspace id to retrieve the record from",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The primary key of the record to retrieve",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the record that was found with the specified id, if any.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPProject"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPProject"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{workspaceId}/erpCustomersAndVendors": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves the list of ERP Customer and Vendors for the specified workspace from the ERP cache",
+        "operationId": "ERPReadOnly_GetCustomersAndVendors",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "The workspace id to retrieve records for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the set of records that were found for the workspaceId.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPCustomerOrVendor"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPCustomerOrVendor"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{workspaceId}/erpCustomersAndVendors/{id}": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves one ERP Customer or Vendor from the ERP cache",
+        "operationId": "ERPReadOnly_GetCustomerOrVendor",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "The workspace id to retrieve the record from",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The primary key of the record to retrieve",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the record that was found with the specified id, if any.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPCustomerOrVendor"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPCustomerOrVendor"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{portfolioGuid}/{projectId}/fieldworkdirectives/{fieldWorkDirectiveId}": {
       "get": {
         "tags": [
@@ -21646,6 +22189,142 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/JobCostsBulkUpsertResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "JobCosts"
+        ],
+        "summary": "Deletes multiple records using originId to locate existing records to delete",
+        "description": "Use of this endpoint indicates that the integrator is using OriginId as the unique key for JobCosts records in a project\r\n            \r\nReturns the result of deletion",
+        "operationId": "JobCosts_DeleteBulkOriginId",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio Primary Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project Primary Key",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "List of job cost origin ids",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "For each primary key in the original list, returns the primary key, success or failure, and the error code and message when an error code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BulkDeleteResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BulkDeleteResponse"
                   }
                 }
               }
@@ -29931,7 +30610,7 @@
           "Project"
         ],
         "summary": "Creates Project using the specified parameters",
-        "description": "It is extremely important to note that the API gateway has a timeout of 55 seconds.\r\nIf this request is for creating a project from a template and the template project is using Trimble Connect as the File Library, then it is possible\r\nfor the request to take longer than 55 seconds.\r\n            \r\nBecause of this, it highly recommend that the InitiateProjectCreation endpoint be used instead.",
+        "description": "It is extremely important to note that the API gateway has a timeout of 29 seconds.\r\nIf this request is for creating a project from a template and the template project is using Trimble Connect as the File Library, then it is possible\r\nfor the request to take longer than 29 seconds.\r\n            \r\nBecause of this, it highly recommend that the createRequest endpoint be used instead.",
         "operationId": "Project_CreateProjectWithParameters",
         "parameters": [
           {
@@ -44025,6 +44704,25 @@
             "type": "boolean",
             "readOnly": true
           },
+          "SofVItemID": {
+            "type": "integer",
+            "description": "A link to a ContractSchedOfValues item in a Prime Contract. Only settable through the API",
+            "format": "int32",
+            "nullable": true
+          },
+          "ContractItem": {
+            "maxLength": 570,
+            "type": "string",
+            "description": "Based on SofVItemId: [Contract.Number]-[ContractSchedOfValues.ItemNumber] - [ContractSchedOfValues.Description]",
+            "nullable": true,
+            "readOnly": true
+          },
+          "ContractID": {
+            "type": "integer",
+            "description": "The primary key of the contract that SofVItemID belongs to",
+            "format": "int32",
+            "readOnly": true
+          },
           "WorkflowState": {
             "type": "integer",
             "format": "int32"
@@ -45028,6 +45726,30 @@
             "type": "boolean",
             "readOnly": true
           },
+          "SofVItemID": {
+            "type": "integer",
+            "description": "A link to a ContractSchedOfValues item in a Prime Contract.",
+            "format": "int32",
+            "readOnly": true
+          },
+          "ContractItem": {
+            "maxLength": 570,
+            "type": "string",
+            "description": "Based on SofVItemId: [Contract.Number]-[ContractSchedOfValues.ItemNumber] - [ContractSchedOfValues.Description]",
+            "nullable": true,
+            "readOnly": true
+          },
+          "ContractID": {
+            "type": "integer",
+            "description": "The primary key of the contract that SofVItemID belongs to",
+            "format": "int32",
+            "readOnly": true
+          },
+          "ERPIntegrated": {
+            "type": "boolean",
+            "description": "This flag is intended for the use of AppXChange to indicate when a Budget snapshot record has been successfully integrated with the ERP",
+            "readOnly": true
+          },
           "WorkflowStatePermissionLevel": {
             "type": "integer",
             "format": "int32",
@@ -45603,6 +46325,16 @@
           "PercentCompleteHours": {
             "type": "number",
             "format": "double",
+            "nullable": true
+          },
+          "ERPIntegrationStatus": {
+            "enum": [
+              "NotIntegrated",
+              "Requested",
+              "Successful",
+              "Failed"
+            ],
+            "type": "string",
             "nullable": true
           }
         },
@@ -50626,6 +51358,234 @@
         },
         "additionalProperties": {}
       },
+      "ERPCompany": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "description": "ProjectSight generated id value",
+            "format": "int32"
+          },
+          "ErpCode": {
+            "type": "string",
+            "description": "The identifier (code) for the Company in the ERP. Unique value provided by Ryvit based on the integrated ERp data.  In Spectrum this is the Company Code.  In Vista, this is a tinyint value converted into a string. In Sage300 this will be a Folder Name.",
+            "nullable": true
+          },
+          "CustomerGroupCode": {
+            "type": "string",
+            "description": "The customer group code for this company from Vista. For Spectrum, this will be the same as ErpCode",
+            "nullable": true
+          },
+          "VendorGroupCode": {
+            "type": "string",
+            "description": "The vendor group code for this company from Vista. For Spectrum, this will be the same as ErpCode",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "description": "Description of company.",
+            "nullable": true
+          },
+          "Address1": {
+            "type": "string",
+            "description": "Address Line 1",
+            "nullable": true
+          },
+          "Address2": {
+            "type": "string",
+            "description": "Address Line 2",
+            "nullable": true
+          },
+          "City": {
+            "type": "string",
+            "description": "City",
+            "nullable": true
+          },
+          "State": {
+            "type": "string",
+            "description": "State",
+            "nullable": true
+          },
+          "Zip": {
+            "type": "string",
+            "description": "Zip",
+            "nullable": true
+          },
+          "Country": {
+            "type": "string",
+            "description": "Country",
+            "nullable": true
+          },
+          "Deleted": {
+            "type": "boolean",
+            "description": "Set to true when the record is deleted in the ERP"
+          }
+        },
+        "additionalProperties": {},
+        "description": "Used in the private ERP Controller"
+      },
+      "ERPCustomerOrVendor": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "description": "ProjectSight generated id value",
+            "format": "int32"
+          },
+          "Type": {
+            "type": "integer",
+            "description": "The type of company. 1 - Vendor, 2 - Customer",
+            "format": "int32"
+          },
+          "GroupCode": {
+            "type": "string",
+            "description": "The group code for the associated Company from Vista. For Spectrum, this will be the same as Company.ErpCode",
+            "nullable": true
+          },
+          "ErpCode": {
+            "type": "string",
+            "description": "Unique value provided by Ryvit based on the integrated ERP data.",
+            "nullable": true
+          },
+          "Name": {
+            "type": "string",
+            "description": "The name of the customer or vendor",
+            "nullable": true
+          },
+          "SortName": {
+            "type": "string",
+            "description": "The sort name of the customer or vendor",
+            "nullable": true
+          },
+          "Status": {
+            "type": "integer",
+            "description": "Primarily for vendor\r\n0 - None, 1 - Active, 2 - Inactive, 3 - Not Used",
+            "format": "int32"
+          },
+          "Address1": {
+            "type": "string",
+            "description": "Address Line 1",
+            "nullable": true
+          },
+          "Address2": {
+            "type": "string",
+            "description": "Address Line 2",
+            "nullable": true
+          },
+          "City": {
+            "type": "string",
+            "description": "City",
+            "nullable": true
+          },
+          "Zip": {
+            "type": "string",
+            "description": "Postcode/zip",
+            "nullable": true
+          },
+          "State": {
+            "type": "string",
+            "description": "State",
+            "nullable": true
+          },
+          "Country": {
+            "type": "string",
+            "description": "Country",
+            "nullable": true
+          },
+          "Tel": {
+            "type": "string",
+            "description": "Phone",
+            "nullable": true
+          },
+          "Fax": {
+            "type": "string",
+            "description": "Fax",
+            "nullable": true
+          },
+          "Email": {
+            "type": "string",
+            "description": "Email",
+            "nullable": true
+          },
+          "VendorType": {
+            "type": "string",
+            "description": "The Vendor Type Just bringing in the values, not sure if we need to use this at this point. User-defined in Vista, not even validated in Spectrum",
+            "nullable": true
+          },
+          "Deleted": {
+            "type": "boolean",
+            "description": "Set to true when the record is deleted in the ERP"
+          }
+        },
+        "additionalProperties": {},
+        "description": "Used in the private ERP Controller"
+      },
+      "ERPProject": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "description": "ProjectSight generated id value",
+            "format": "int32"
+          },
+          "CompanyId": {
+            "type": "integer",
+            "description": "The id from the Companies table",
+            "format": "int32"
+          },
+          "ErpCode": {
+            "type": "string",
+            "description": "Unique value provided by Ryvit based on the integrated ERP data.",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "description": "(required) job description",
+            "nullable": true
+          },
+          "Status": {
+            "type": "string",
+            "description": "(required) Project state",
+            "nullable": true
+          },
+          "Address1": {
+            "type": "string",
+            "description": "Address Line 1",
+            "nullable": true
+          },
+          "Address2": {
+            "type": "string",
+            "description": "Address Line 2",
+            "nullable": true
+          },
+          "City": {
+            "type": "string",
+            "description": "City",
+            "nullable": true
+          },
+          "State": {
+            "type": "string",
+            "description": "State",
+            "nullable": true
+          },
+          "Zip": {
+            "type": "string",
+            "description": "Zip",
+            "nullable": true
+          },
+          "Country": {
+            "type": "string",
+            "description": "Country",
+            "nullable": true
+          },
+          "Deleted": {
+            "type": "boolean",
+            "description": "Set to true when the record is deleted in the ERP"
+          }
+        },
+        "additionalProperties": {},
+        "description": "Used in the private ERP Controller"
+      },
       "Equipment": {
         "required": [
           "CompanyID",
@@ -53321,8 +54281,7 @@
           "Type": {
             "enum": [
               "None",
-              "SubcontractInvoice",
-              "GeneralInvoice",
+              "CommitmentInvoice",
               "Expense",
               "Payroll"
             ],
@@ -53333,17 +54292,12 @@
             "minLength": 1,
             "type": "string"
           },
-          "Date": {
+          "Month": {
             "type": "string",
             "format": "date",
             "nullable": true
           },
-          "ReceivedDate": {
-            "type": "string",
-            "format": "date",
-            "nullable": true
-          },
-          "PaidDate": {
+          "ActualDate": {
             "type": "string",
             "format": "date",
             "nullable": true
@@ -53363,6 +54317,11 @@
             "type": "string",
             "nullable": true,
             "readOnly": true
+          },
+          "ExtCompanyName": {
+            "maxLength": 100,
+            "type": "string",
+            "nullable": true
           },
           "OriginID": {
             "maxLength": 100,
@@ -54912,6 +55871,11 @@
             "minLength": 1,
             "type": "string"
           },
+          "LastActivityDate": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
           "Disabled": {
             "type": "boolean",
             "description": "This will be set to true if the Portfolio has been disabled",
@@ -54937,10 +55901,6 @@
             "readOnly": true
           },
           "TCToDos": {
-            "type": "boolean",
-            "readOnly": true
-          },
-          "ProjectExport": {
             "type": "boolean",
             "readOnly": true
           },
@@ -56709,6 +57669,11 @@
           },
           "WindowsTimeZone": {
             "maxLength": 100,
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "LastActivityDate": {
             "type": "string",
             "nullable": true,
             "readOnly": true
