@@ -14821,21 +14821,206 @@
         }
       }
     },
+    "/accounts/{accountId}/erpCompanies": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves the list of ERP Companies for the specified account from the ERP cache",
+        "operationId": "ERPReadOnly_GetCompaniesForAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The account id to retrieve records for",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the set of records that were found for the workspaceId.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPCompany"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPCompany"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{workspaceId}/erpCompanies/{id}": {
       "get": {
         "tags": [
           "ERPReadOnly"
         ],
-        "summary": "Retrieves one ERP Company from the ERP cache",
+        "summary": "Retrieves one ERP Company for the specified workspace from the ERP cache",
         "operationId": "ERPReadOnly_GetCompany",
         "parameters": [
           {
             "name": "workspaceId",
             "in": "path",
-            "description": "The workspace id to retrieve the record from",
+            "description": "The account id to retrieve the record from",
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The primary key of the record to retrieve",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the record that was found with the specified id, if any.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPCompany"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPCompany"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{accountId}/erpCompanies/{id}": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves one ERP Company for the specified account from the ERP cache",
+        "operationId": "ERPReadOnly_GetCompanyInAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The account id to retrieve the record from",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
             }
           },
           {
@@ -15002,12 +15187,102 @@
         }
       }
     },
+    "/accounts/{accountId}/erpProjects": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves the list of ERP Projects for the specified account from the ERP cache",
+        "operationId": "ERPReadOnly_GetProjectsForAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The account id to retrieve records for",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the set of records that were found for the workspaceId.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPProject"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPProject"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{workspaceId}/erpProjects/{id}": {
       "get": {
         "tags": [
           "ERPReadOnly"
         ],
-        "summary": "Retrieves one ERP Project from the ERP cache",
+        "summary": "Retrieves one ERP Project for the specified workspace from the ERP cache",
         "operationId": "ERPReadOnly_GetProject",
         "parameters": [
           {
@@ -15017,6 +15292,101 @@
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The primary key of the record to retrieve",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the record that was found with the specified id, if any.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPProject"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPProject"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{accountId}/erpProjects/{id}": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves one ERP Project for the specified account from the ERP cache",
+        "operationId": "ERPReadOnly_GetProjectInAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The account id to retrieve the record from",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
             }
           },
           {
@@ -15183,12 +15553,102 @@
         }
       }
     },
+    "/accounts/{accountId}/erpCustomersAndVendors": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves the list of ERP Customer and Vendors for the specified account from the ERP cache",
+        "operationId": "ERPReadOnly_GetCustomersAndVendorsForAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The account id to retrieve records for",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the set of records that were found for the workspaceId.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPCustomerOrVendor"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPCustomerOrVendor"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{workspaceId}/erpCustomersAndVendors/{id}": {
       "get": {
         "tags": [
           "ERPReadOnly"
         ],
-        "summary": "Retrieves one ERP Customer or Vendor from the ERP cache",
+        "summary": "Retrieves one ERP Customer or Vendor in the specified workspace from the ERP cache",
         "operationId": "ERPReadOnly_GetCustomerOrVendor",
         "parameters": [
           {
@@ -15198,6 +15658,101 @@
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The primary key of the record to retrieve",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the record that was found with the specified id, if any.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPCustomerOrVendor"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPCustomerOrVendor"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{accountId}/erpCustomersAndVendors/{id}": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves one ERP Customer or Vendor in the specified account from the ERP cache",
+        "operationId": "ERPReadOnly_GetCustomerOrVendorInAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The account id to retrieve the record from",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
             }
           },
           {
@@ -55904,6 +56459,10 @@
             "type": "boolean",
             "readOnly": true
           },
+          "AIAssistant": {
+            "type": "boolean",
+            "readOnly": true
+          },
           "ContactSearchLimitToProject": {
             "type": "boolean",
             "readOnly": true
@@ -62308,6 +62867,10 @@
             "type": "boolean",
             "readOnly": true
           },
+          "MarketingConsent": {
+            "type": "boolean",
+            "readOnly": true
+          },
           "LastActivityDate": {
             "type": "string",
             "nullable": true,
@@ -62400,6 +62963,32 @@
           },
           "IsDefault": {
             "type": "boolean",
+            "nullable": true
+          },
+          "CanInviteTeamMemberFromAnyCompany": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "CanInviteTeamMemberFromTheirCompany": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "CanInviteTeamMemberFromAllRoles": {
+            "enum": [
+              "None",
+              "Some",
+              "All"
+            ],
+            "type": "string",
+            "nullable": true
+          },
+          "CanRemoveTeamMemberFromAllRoles": {
+            "enum": [
+              "None",
+              "Some",
+              "All"
+            ],
+            "type": "string",
             "nullable": true
           },
           "WhenCreated": {
