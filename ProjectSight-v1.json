@@ -3043,7 +3043,7 @@
         "tags": [
           "Budget"
         ],
-        "summary": "Get Collection of Budget records based on a query request, including all children, based on a query request.",
+        "summary": "Get Collection of Budget records (including all children) based on a query request.",
         "description": "Returns the list of user accessible budget information for the given query.\r\nThis endpoint can return a large amount of data and should be used sparingly.",
         "operationId": "Budget_ListWithQuery",
         "parameters": [
@@ -6622,7 +6622,7 @@
         "tags": [
           "Checklist"
         ],
-        "summary": "Get Collection of CheckList Records based on a query request based on a query request which can optionally specify which children to retrieve",
+        "summary": "Get Collection of CheckList Records based on a query request which can optionally specify which children to retrieve",
         "description": "Returns the requested list of Checklists that the user has access to within the specified portfolio and project.\r\nThis is the preferred endpoint for retrieving lists of records",
         "operationId": "Checklist_ListOnlyWithQuery",
         "parameters": [
@@ -28498,6 +28498,228 @@
         }
       }
     },
+    "/portfolios/createFromRequest": {
+      "post": {
+        "tags": [
+          "Portfolio"
+        ],
+        "summary": "Creates new Portfolio from a request",
+        "description": "Returns information on the new Portfolio.",
+        "operationId": "Portfolio_CreateFromRequest",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortfolioCreateRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortfolioCreateRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortfolioCreateRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortfolioCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the new Portfolio information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Portfolio"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Portfolio"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/portfolios/copyFromTemplate": {
+      "post": {
+        "tags": [
+          "Portfolio"
+        ],
+        "summary": "Creates a new Portfolio by copying from a template Portfolio",
+        "description": "Returns information on the new Portfolio.",
+        "operationId": "Portfolio_CopyFromTemplate",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortfolioCopyFromTemplateRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortfolioCopyFromTemplateRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortfolioCopyFromTemplateRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortfolioCopyFromTemplateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the new Portfolio information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Portfolio"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Portfolio"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/portfolios/{portfolioGuid}": {
       "get": {
         "tags": [
@@ -36253,112 +36475,6 @@
                   "items": {
                     "$ref": "#/components/schemas/WorkflowState"
                   }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized Access",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResult"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResult"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResult"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResult"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. Please contact your administrator for more details.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResult"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResult"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{portfolioGuid}/{projectId}/rfis/{rfiId}/sharewithowner": {
-      "post": {
-        "tags": [
-          "RFI"
-        ],
-        "summary": "Shares the RFI with the Owner",
-        "description": "Initiates the process for sharing the RFI with the owner, assuming that all of the conditions for sharing are met.",
-        "operationId": "RFI_ShareWithOwner",
-        "parameters": [
-          {
-            "name": "portfolioGuid",
-            "in": "path",
-            "description": "Portfolio GUID",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "projectId",
-            "in": "path",
-            "description": "Project ID",
-            "required": true,
-            "schema": {
-              "minimum": 1,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "rfiId",
-            "in": "path",
-            "description": "RFI ID",
-            "required": true,
-            "schema": {
-              "minimum": 1,
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns the updated RFI.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RFI"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RFI"
                 }
               }
             }
@@ -47320,7 +47436,7 @@
             "format": "double",
             "readOnly": true
           },
-          "BdgtAppliedAmount": {
+          "RevenueAmount": {
             "type": "number",
             "format": "double",
             "readOnly": true
@@ -47960,26 +48076,6 @@
             "type": "boolean",
             "readOnly": true
           },
-          "Type": {
-            "enum": [
-              "None",
-              "Details",
-              "Comment",
-              "Resolution",
-              "KeyLinks"
-            ],
-            "type": "string",
-            "nullable": true
-          },
-          "VoiceMemoGUID": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true
-          },
-          "Promoted": {
-            "type": "boolean",
-            "readOnly": true
-          },
           "Comments": {
             "maxLength": 2147483647,
             "minLength": 1,
@@ -47994,6 +48090,21 @@
           "LastModifiedByContactID": {
             "type": "integer",
             "format": "int32",
+            "readOnly": true
+          },
+          "Type": {
+            "enum": [
+              "None",
+              "Details",
+              "Comment",
+              "Resolution",
+              "KeyLinks"
+            ],
+            "type": "string",
+            "nullable": true
+          },
+          "Promoted": {
+            "type": "boolean",
             "readOnly": true
           },
           "ProjectID": {
@@ -55922,105 +56033,6 @@
         },
         "additionalProperties": {}
       },
-      "Message": {
-        "required": [
-          "Comments"
-        ],
-        "type": "object",
-        "properties": {
-          "TableType": {
-            "type": "integer",
-            "description": "Table Type 48",
-            "format": "int32",
-            "readOnly": true
-          },
-          "CommentID": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "GUID": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true
-          },
-          "DeleteRequested": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "Deleted": {
-            "type": "boolean",
-            "readOnly": true
-          },
-          "Type": {
-            "enum": [
-              "None",
-              "Initial",
-              "Acknowledge",
-              "Message",
-              "Result",
-              "DebugError"
-            ],
-            "type": "string",
-            "nullable": true
-          },
-          "Comments": {
-            "maxLength": 2147483647,
-            "minLength": 1,
-            "type": "string"
-          },
-          "LastModifiedByDisplayName": {
-            "maxLength": 255,
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "LastModifiedByContactID": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "ProjectID": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "WhenCreated": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "CreatedBy": {
-            "maxLength": 255,
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "CreatedByContactID": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "CreatedByDisplayName": {
-            "maxLength": 255,
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "LastModified": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "LastModifiedBy": {
-            "maxLength": 255,
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          }
-        },
-        "additionalProperties": {}
-      },
       "Notice": {
         "required": [
           "AuthorContactID",
@@ -56535,6 +56547,64 @@
         },
         "additionalProperties": {}
       },
+      "PortfolioCopyFromTemplateRequest": {
+        "required": [
+          "Name",
+          "TemplatePortfolioID"
+        ],
+        "type": "object",
+        "properties": {
+          "Name": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The name of the new Portfolio"
+          },
+          "TemplatePortfolioID": {
+            "type": "string",
+            "description": "The primary key of the Portfolio the new Portfolio is to be copied from.",
+            "format": "uuid"
+          },
+          "CopySettings": {
+            "type": "boolean",
+            "description": "Should Portfolio Settings be copied from the template Portfolio?"
+          },
+          "CopyUsers": {
+            "type": "boolean",
+            "description": "Should Users be copied from the template Portfolio?\r\nIf Users are being copied SecurityRoles and Companies will also be copied."
+          },
+          "CopySecurityRoles": {
+            "type": "boolean",
+            "description": "Should Security Roles be copied from the template Portfolio?\r\nAlways true if CopyUsers is true\r\n///"
+          },
+          "CopyCompanies": {
+            "type": "boolean",
+            "description": "Should Companies be copied from the template Portfolio?\r\nAlways true if CopyUsers is true"
+          }
+        },
+        "additionalProperties": {},
+        "description": "Used to accept parameters used in creating a new Portfolio from a template"
+      },
+      "PortfolioCreateRequest": {
+        "required": [
+          "AccountID",
+          "Name"
+        ],
+        "type": "object",
+        "properties": {
+          "Name": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The name of the new Portfolio"
+          },
+          "AccountID": {
+            "type": "integer",
+            "description": "The primary key of the Account the Portfolio is to be created in.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": {},
+        "description": "Used to accept parameters used in creating a new Portfolio"
+      },
       "PotentialCO": {
         "required": [
           "AuthorContactID",
@@ -56683,6 +56753,11 @@
           "ChangeOrderID": {
             "type": "integer",
             "format": "int32",
+            "readOnly": true
+          },
+          "RevenueAmount": {
+            "type": "number",
+            "format": "double",
             "readOnly": true
           },
           "PCCONumber": {
@@ -57107,6 +57182,35 @@
           "CompanyName": {
             "maxLength": 100,
             "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "RevenueIncluded": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "RevenueMarkupPercent": {
+            "type": "number",
+            "description": "If RevenueIncluded, (1 - (BdgtAppliedAmount + RevenueMarkupAmount / BdgtAppliedAmount)) * 100, otherwise 0, If RevenueMarkupAmount is set to 0 and RevenueMarkupPercent is not, RevenueMarkupAmount will be automatically calculated.",
+            "format": "double",
+            "nullable": true
+          },
+          "RevenueAmount": {
+            "type": "number",
+            "description": "BdgtAppliedAmount + RevenueMarkupAmount",
+            "format": "double",
+            "readOnly": true
+          },
+          "RevenueMarkupAmount": {
+            "type": "number",
+            "description": "If RevenueIncluded, BdgtAppliedAmount * RevenueMarkupPercent, otherwise 0, If RevenueMarkupPercent is set to 0 and RevenueMarkupAmount is not, RevenueMarkupPercent will be automatically calculated.",
+            "format": "double",
+            "nullable": true
+          },
+          "RevenueContractItem": {
+            "maxLength": 50,
+            "type": "string",
+            "description": "Based on SofVItemId associated with selected budget code: [Contract.Number]-[ContractSchedOfValues.ItemNumber] - [ContractSchedOfValues.Description]",
             "nullable": true,
             "readOnly": true
           },
@@ -57641,7 +57745,7 @@
             "nullable": true,
             "readOnly": true
           },
-          "BdgtAppliedAmount": {
+          "RevenueAmount": {
             "type": "number",
             "format": "double",
             "readOnly": true
@@ -59910,24 +60014,10 @@
             },
             "nullable": true
           },
-          "OwnerRecordLinks": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RecordLink"
-            },
-            "nullable": true
-          },
           "RecordComments": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Comment"
-            },
-            "nullable": true
-          },
-          "OwnerMessages": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Message"
             },
             "nullable": true
           },
@@ -59946,13 +60036,6 @@
             "nullable": true
           },
           "FileLinks": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/FileLink"
-            },
-            "nullable": true
-          },
-          "OwnerFileLinks": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/FileLink"
