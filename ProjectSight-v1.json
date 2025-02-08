@@ -32007,9 +32007,102 @@
         "tags": [
           "Project"
         ],
+        "operationId": "Project_GetImage",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{portfolioGuid}/{projectId}/projects/image": {
+      "get": {
+        "tags": [
+          "Project"
+        ],
         "summary": "Get Project Picture from server",
         "description": "Returns the specified project image that the user has access to within the specified portfolio",
-        "operationId": "Project_GetImage",
+        "operationId": "Project_GetPicture",
         "parameters": [
           {
             "name": "portfolioGuid",
@@ -32047,6 +32140,102 @@
                 "schema": {
                   "type": "string",
                   "format": "byte"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Server has not found anything matching the requested information."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Post or Update project picture",
+        "description": "Project picture is shown in the list of projects and project dashboard",
+        "operationId": "Project_UploadProjectImage",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project projectId",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns confirmation bool that the project image has been uploaded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
                 }
               }
             }
@@ -45077,6 +45266,12 @@
             "format": "double",
             "readOnly": true
           },
+          "Hours": {
+            "type": "number",
+            "description": "The actual hours for payroll.",
+            "format": "double",
+            "readOnly": true
+          },
           "ProjectedCostUnitPrice": {
             "type": "number",
             "description": "ProjectedCost / ProjectedCostQuantity",
@@ -46419,6 +46614,12 @@
           "ERPIntegrated": {
             "type": "boolean",
             "description": "This flag is intended for the use of AppXChange to indicate when a Budget snapshot record has been successfully integrated with the ERP",
+            "readOnly": true
+          },
+          "Hours": {
+            "type": "number",
+            "description": "The actual hours for payroll.",
+            "format": "double",
             "readOnly": true
           },
           "WorkflowStatePermissionLevel": {
@@ -54236,6 +54437,11 @@
             "type": "boolean",
             "nullable": true
           },
+          "Override": {
+            "type": "boolean",
+            "description": "When enabled Quantity, UnitPrice, and subtotal will not be automatically recalculated",
+            "nullable": true
+          },
           "POItemID": {
             "type": "integer",
             "format": "int32",
@@ -54250,6 +54456,12 @@
           "POSubtotal": {
             "type": "number",
             "description": "The Balance from the linked PurchaseOrderItem at the time the PurchaseOrderItem was used to create this record",
+            "format": "double",
+            "readOnly": true
+          },
+          "CurrentPOSubTotal": {
+            "type": "number",
+            "description": "The current balance from the linked PurchaseOrderItem",
             "format": "double",
             "readOnly": true
           },
@@ -54273,6 +54485,18 @@
           "POQuantity": {
             "type": "number",
             "description": "The QuantityBalance from the linked PurchaseOrderItem at the time the PurchaseOrderItem was used to create this record",
+            "format": "double",
+            "readOnly": true
+          },
+          "CurrentPOQuantity": {
+            "type": "number",
+            "description": "The current QuantityBalance from the linked PurchaseOrderItem",
+            "format": "double",
+            "readOnly": true
+          },
+          "CurrentPOUnitPrice": {
+            "type": "number",
+            "description": "The current UnitPrice from the linked PurchaseOrderItem",
             "format": "double",
             "readOnly": true
           },
@@ -54868,6 +55092,12 @@
           "OriginID": {
             "maxLength": 100,
             "type": "string",
+            "nullable": true
+          },
+          "Hours": {
+            "type": "number",
+            "description": "The actual hours for payroll.",
+            "format": "double",
             "nullable": true
           },
           "ProjectID": {
@@ -57208,7 +57438,7 @@
             "nullable": true
           },
           "RevenueContractItem": {
-            "maxLength": 50,
+            "maxLength": 564,
             "type": "string",
             "description": "Based on SofVItemId associated with selected budget code: [Contract.Number]-[ContractSchedOfValues.ItemNumber] - [ContractSchedOfValues.Description]",
             "nullable": true,
@@ -58624,6 +58854,11 @@
           "LicenseForNewTCProject": {
             "type": "string",
             "description": "If a new Trimble Connect project is to be created when this project is created this property will specify the license to be used for the new Trimble Connect Project.\r\nValid values are the Display Name of the license, the Account Id of the license, the license identifier (Guid), or Default.\r\nDefault is only required when the Portfolio that the Project is being created in does not require all new ProjectSight Projects to be linked to a Trimble Connect Project.\r\nIf this is set to a value other than Default, it must be a valid Trimble Connect license accessible to the requesting user.\r\nIf this is not set or set to Default and a new Trimble Connect project is created, the Account associated with the Portfolio the project is being created in must have\r\na Trimble Connect Enterprise License Key set.",
+            "nullable": true
+          },
+          "ExistingTCProjectID": {
+            "type": "string",
+            "description": "The existing Trimble Connect project ID to link to the new project.",
             "nullable": true
           },
           "Project": {
