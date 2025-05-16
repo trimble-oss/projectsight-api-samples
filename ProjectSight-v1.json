@@ -7929,6 +7929,100 @@
         }
       }
     },
+    "/{portfolioGuid}/Companies/{companyId}/linkToERP/{erpCustomerOrVendorId}": {
+      "put": {
+        "tags": [
+          "Company"
+        ],
+        "summary": "Links a ProjectSight company to an ERP customer or vendor",
+        "description": "Returns true if successful",
+        "operationId": "Company_LinkToERPCompany",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "ProjectSight Company ID. If this is 0, a new PS company will be created from the ERP customer or vendor.",
+            "required": true,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "erpCustomerOrVendorId",
+            "in": "path",
+            "description": "ERP Customer or Vendor ID from the erpCustomersAndVendors endpoint",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns true if the company was successfully linked"
+          },
+          "401": {
+            "description": "Unauthorized Access or company already linked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{portfolioGuid}/Contacts/{contactId}": {
       "get": {
         "tags": [
@@ -32813,6 +32907,100 @@
         }
       }
     },
+    "/{portfolioGuid}/projects/{projectId}/linkToERP/{erpProjectId}": {
+      "put": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Links a ProjectSight project to an ERP project",
+        "description": "Returns true if successful",
+        "operationId": "Project_LinkToERPProject",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "ProjectSight Project ID",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "erpProjectId",
+            "in": "path",
+            "description": "ERP Project ID from the erpProjects endpoint",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns true if the project was successfully linked"
+          },
+          "401": {
+            "description": "Unauthorized Access or Project already linked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{portfolioGuid}/{projectId}/punchlists/{punchListId}": {
       "get": {
         "tags": [
@@ -49797,6 +49985,11 @@
             "format": "date",
             "nullable": true
           },
+          "DueDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
           "CategoryID": {
             "type": "integer",
             "description": "Lookup List Section 119",
@@ -56830,6 +57023,11 @@
             "type": "integer",
             "description": "The primary key of the Account the Portfolio is to be created in.",
             "format": "int32"
+          },
+          "LanguageRegion": {
+            "type": "string",
+            "description": "The two character region code for the language the portfolio should be created in.\r\nCurrent supported values:\r\nen - English\r\nnl - Dutch\r\nde - German\r\nfr - French\r\nes - Spanish (Mexican)",
+            "nullable": true
           }
         },
         "additionalProperties": {},
@@ -61579,6 +61777,10 @@
             "type": "boolean",
             "nullable": true
           },
+          "IsAutoGenerated": {
+            "type": "boolean",
+            "readOnly": true
+          },
           "IsPhysicalSubmittal": {
             "type": "boolean",
             "nullable": true
@@ -61970,6 +62172,10 @@
           "IsClosed": {
             "type": "boolean",
             "nullable": true
+          },
+          "IsAutoGenerated": {
+            "type": "boolean",
+            "readOnly": true
           },
           "Number": {
             "maxLength": 30,
