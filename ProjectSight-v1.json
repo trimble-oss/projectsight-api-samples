@@ -56912,7 +56912,7 @@
             "type": "boolean",
             "readOnly": true
           },
-          "Chatbot": {
+          "AIAssistant": {
             "type": "boolean",
             "readOnly": true
           },
