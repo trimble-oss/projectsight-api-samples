@@ -54675,6 +54675,12 @@
             "format": "double",
             "readOnly": true
           },
+          "TotalInvoicedAmount": {
+            "type": "number",
+            "description": "If this item is linked to a PurchaseOrderItem, the CurrentPOSubTotal - Balance",
+            "format": "double",
+            "readOnly": true
+          },
           "POQuantity": {
             "type": "number",
             "description": "The QuantityBalance from the linked PurchaseOrderItem at the time the PurchaseOrderItem was used to create this record",
@@ -54696,6 +54702,18 @@
           "QuantityBalance": {
             "type": "number",
             "description": "If this item is linked to a PurchaseOrderItem, the POQuantity - Quantity",
+            "format": "double",
+            "readOnly": true
+          },
+          "TotalInvoicedQty": {
+            "type": "number",
+            "description": "If this item is linked to a PurchaseOrderItem, the CurrentPOQuantity - QuantityBalance",
+            "format": "double",
+            "readOnly": true
+          },
+          "TotalPercentageComplete": {
+            "type": "number",
+            "description": "If this item is linked to a PurchaseOrderItem, the (TotalInvoicedAmount / CurrentPOSubTotal) * 100",
             "format": "double",
             "readOnly": true
           },
@@ -57625,7 +57643,7 @@
           },
           "RevenueAmount": {
             "type": "number",
-            "description": "BdgtAppliedAmount + RevenueMarkupAmount",
+            "description": "If RevenueIncluded is set return BdgtAppliedAmount + RevenueMarkupAmount, otherwise  return 0",
             "format": "double",
             "readOnly": true
           },
@@ -59582,6 +59600,17 @@
             "nullable": true
           },
           "FromContactName": {
+            "maxLength": 150,
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "FromSignedByContactID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "FromSignedByContactName": {
             "maxLength": 150,
             "type": "string",
             "nullable": true,
