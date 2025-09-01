@@ -37,7 +37,6 @@ namespace ProjectSight.API.SampleApp
         // care should be taken that the given URL will not cause unwanted behavior on the test system
         private const string REDIRECT_URI = "http://127.0.0.1";
 
-        private string m_APIKey;
         private string m_AccessToken;
 
         private static HttpClient _client = new HttpClient();
@@ -58,10 +57,6 @@ namespace ProjectSight.API.SampleApp
         protected override void PrepareRequest(HttpRequestMessage request)
         {
             request.Headers.Add("Authorization", $"Bearer {m_AccessToken}");
-            if (!string.IsNullOrEmpty(m_APIKey))
-            {
-                request.Headers.Add("x-api-key", m_APIKey);
-            }
         }
 
         /// <summary>
@@ -71,17 +66,14 @@ namespace ProjectSight.API.SampleApp
         /// <param name="clientKey">The API Application Client ID</param>
         /// <param name="clientSecret">The API Application Client Secret</param>
         /// <param name="applicationName">The API Application Name</param>
-        /// <param name="apiKey">The API Package & Usage Plan Key</param>
         /// <returns></returns>
-        public async Task<string> GenerateApplicationAccessToken(string clientKey, string clientSecret, string applicationName, string apiKey)
+        public async Task<string> GenerateApplicationAccessToken(string clientKey, string clientSecret, string applicationName)
         {
-            if (string.IsNullOrWhiteSpace(clientKey) || string.IsNullOrWhiteSpace(clientSecret) || string.IsNullOrWhiteSpace(applicationName) || string.IsNullOrWhiteSpace(apiKey))
+            if (string.IsNullOrWhiteSpace(clientKey) || string.IsNullOrWhiteSpace(clientSecret) || string.IsNullOrWhiteSpace(applicationName))
             {
-                MessageBox.Show($"{nameof(clientKey)}, {nameof(clientSecret)}, {nameof(applicationName)}, and {nameof(apiKey)} must all be specified.", "Parameter Error", MessageBoxButtons.OK);
+                MessageBox.Show($"{nameof(clientKey)}, {nameof(clientSecret)}, and {nameof(applicationName)} must all be specified.", "Parameter Error", MessageBoxButtons.OK);
                 return null;
             }
-
-            m_APIKey = apiKey;
 
             m_AccessToken = await GetApplicationAccessTokenFromTID(clientKey, clientSecret, applicationName);
 
@@ -95,17 +87,14 @@ namespace ProjectSight.API.SampleApp
         /// <param name="clientKey">The API Application Client ID</param>
         /// <param name="clientSecret">The API Application Client Secret</param>
         /// <param name="applicationName">The API Application Name</param>
-        /// <param name="apiKey">The API Package & Usage Plan Key</param>
         /// <returns></returns>
-        public async Task<string> GenerateUserAccessToken(string clientKey, string clientSecret, string applicationName, string apiKey)
+        public async Task<string> GenerateUserAccessToken(string clientKey, string clientSecret, string applicationName)
         {
-            if (string.IsNullOrWhiteSpace(clientKey) || string.IsNullOrWhiteSpace(clientSecret) || string.IsNullOrWhiteSpace(applicationName) || string.IsNullOrWhiteSpace(apiKey))
+            if (string.IsNullOrWhiteSpace(clientKey) || string.IsNullOrWhiteSpace(clientSecret) || string.IsNullOrWhiteSpace(applicationName))
             {
-                MessageBox.Show($"{nameof(clientKey)}, {nameof(clientSecret)}, {nameof(applicationName)}, and {nameof(apiKey)} must all be specified.", "Parameter Error", MessageBoxButtons.OK);
+                MessageBox.Show($"{nameof(clientKey)}, {nameof(clientSecret)}, and {nameof(applicationName)} must all be specified.", "Parameter Error", MessageBoxButtons.OK);
                 return null;
             }
-
-            m_APIKey = apiKey;
 
             m_AccessToken = await GetUserAccessTokenFromTID(clientKey, clientSecret, applicationName);
 
