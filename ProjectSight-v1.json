@@ -3043,7 +3043,7 @@
         "tags": [
           "Budget"
         ],
-        "summary": "Get Collection of Budget records based on a query request, including all children, based on a query request.",
+        "summary": "Get Collection of Budget records (including all children) based on a query request.",
         "description": "Returns the list of user accessible budget information for the given query.\r\nThis endpoint can return a large amount of data and should be used sparingly.",
         "operationId": "Budget_ListWithQuery",
         "parameters": [
@@ -6622,7 +6622,7 @@
         "tags": [
           "Checklist"
         ],
-        "summary": "Get Collection of CheckList Records based on a query request based on a query request which can optionally specify which children to retrieve",
+        "summary": "Get Collection of CheckList Records based on a query request which can optionally specify which children to retrieve",
         "description": "Returns the requested list of Checklists that the user has access to within the specified portfolio and project.\r\nThis is the preferred endpoint for retrieving lists of records",
         "operationId": "Checklist_ListOnlyWithQuery",
         "parameters": [
@@ -7883,6 +7883,100 @@
           },
           "401": {
             "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{portfolioGuid}/Companies/{companyId}/linkToERP/{erpCustomerOrVendorId}": {
+      "put": {
+        "tags": [
+          "Company"
+        ],
+        "summary": "Links a ProjectSight company to an ERP customer or vendor",
+        "description": "Returns true if successful",
+        "operationId": "Company_LinkToERPCompany",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "companyId",
+            "in": "path",
+            "description": "ProjectSight Company ID. If this is 0, a new PS company will be created from the ERP customer or vendor.",
+            "required": true,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "erpCustomerOrVendorId",
+            "in": "path",
+            "description": "ERP Customer or Vendor ID from the erpCustomersAndVendors endpoint",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns true if the company was successfully linked"
+          },
+          "401": {
+            "description": "Unauthorized Access or company already linked",
             "content": {
               "application/json": {
                 "schema": {
@@ -14821,21 +14915,206 @@
         }
       }
     },
+    "/accounts/{accountId}/erpCompanies": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves the list of ERP Companies for the specified account from the ERP cache",
+        "operationId": "ERPReadOnly_GetCompaniesForAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The account id to retrieve records for",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the set of records that were found for the workspaceId.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPCompany"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPCompany"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{workspaceId}/erpCompanies/{id}": {
       "get": {
         "tags": [
           "ERPReadOnly"
         ],
-        "summary": "Retrieves one ERP Company from the ERP cache",
+        "summary": "Retrieves one ERP Company for the specified workspace from the ERP cache",
         "operationId": "ERPReadOnly_GetCompany",
         "parameters": [
           {
             "name": "workspaceId",
             "in": "path",
-            "description": "The workspace id to retrieve the record from",
+            "description": "The account id to retrieve the record from",
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The primary key of the record to retrieve",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the record that was found with the specified id, if any.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPCompany"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPCompany"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{accountId}/erpCompanies/{id}": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves one ERP Company for the specified account from the ERP cache",
+        "operationId": "ERPReadOnly_GetCompanyInAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The account id to retrieve the record from",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
             }
           },
           {
@@ -15002,12 +15281,102 @@
         }
       }
     },
+    "/accounts/{accountId}/erpProjects": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves the list of ERP Projects for the specified account from the ERP cache",
+        "operationId": "ERPReadOnly_GetProjectsForAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The account id to retrieve records for",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the set of records that were found for the workspaceId.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPProject"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPProject"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{workspaceId}/erpProjects/{id}": {
       "get": {
         "tags": [
           "ERPReadOnly"
         ],
-        "summary": "Retrieves one ERP Project from the ERP cache",
+        "summary": "Retrieves one ERP Project for the specified workspace from the ERP cache",
         "operationId": "ERPReadOnly_GetProject",
         "parameters": [
           {
@@ -15017,6 +15386,101 @@
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The primary key of the record to retrieve",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the record that was found with the specified id, if any.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPProject"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPProject"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{accountId}/erpProjects/{id}": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves one ERP Project for the specified account from the ERP cache",
+        "operationId": "ERPReadOnly_GetProjectInAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The account id to retrieve the record from",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
             }
           },
           {
@@ -15183,12 +15647,102 @@
         }
       }
     },
+    "/accounts/{accountId}/erpCustomersAndVendors": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves the list of ERP Customer and Vendors for the specified account from the ERP cache",
+        "operationId": "ERPReadOnly_GetCustomersAndVendorsForAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The account id to retrieve records for",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the set of records that were found for the workspaceId.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPCustomerOrVendor"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ERPCustomerOrVendor"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{workspaceId}/erpCustomersAndVendors/{id}": {
       "get": {
         "tags": [
           "ERPReadOnly"
         ],
-        "summary": "Retrieves one ERP Customer or Vendor from the ERP cache",
+        "summary": "Retrieves one ERP Customer or Vendor in the specified workspace from the ERP cache",
         "operationId": "ERPReadOnly_GetCustomerOrVendor",
         "parameters": [
           {
@@ -15198,6 +15752,101 @@
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The primary key of the record to retrieve",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the record that was found with the specified id, if any.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPCustomerOrVendor"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERPCustomerOrVendor"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{accountId}/erpCustomersAndVendors/{id}": {
+      "get": {
+        "tags": [
+          "ERPReadOnly"
+        ],
+        "summary": "Retrieves one ERP Customer or Vendor in the specified account from the ERP cache",
+        "operationId": "ERPReadOnly_GetCustomerOrVendorInAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The account id to retrieve the record from",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
             }
           },
           {
@@ -27943,6 +28592,228 @@
         }
       }
     },
+    "/portfolios/createFromRequest": {
+      "post": {
+        "tags": [
+          "Portfolio"
+        ],
+        "summary": "Creates new Portfolio from a request",
+        "description": "Returns information on the new Portfolio.",
+        "operationId": "Portfolio_CreateFromRequest",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortfolioCreateRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortfolioCreateRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortfolioCreateRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortfolioCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the new Portfolio information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Portfolio"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Portfolio"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/portfolios/copyFromTemplate": {
+      "post": {
+        "tags": [
+          "Portfolio"
+        ],
+        "summary": "Creates a new Portfolio by copying from a template Portfolio",
+        "description": "Returns information on the new Portfolio.",
+        "operationId": "Portfolio_CopyFromTemplate",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortfolioCopyFromTemplateRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortfolioCopyFromTemplateRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortfolioCopyFromTemplateRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortfolioCopyFromTemplateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the new Portfolio information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Portfolio"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Portfolio"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/portfolios/{portfolioGuid}": {
       "get": {
         "tags": [
@@ -31230,9 +32101,102 @@
         "tags": [
           "Project"
         ],
+        "operationId": "Project_GetImage",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{portfolioGuid}/{projectId}/projects/image": {
+      "get": {
+        "tags": [
+          "Project"
+        ],
         "summary": "Get Project Picture from server",
         "description": "Returns the specified project image that the user has access to within the specified portfolio",
-        "operationId": "Project_GetImage",
+        "operationId": "Project_GetPicture",
         "parameters": [
           {
             "name": "portfolioGuid",
@@ -31270,6 +32234,102 @@
                 "schema": {
                   "type": "string",
                   "format": "byte"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Server has not found anything matching the requested information."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Post or Update project picture",
+        "description": "Project picture is shown in the list of projects and project dashboard",
+        "operationId": "Project_UploadProjectImage",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "Project projectId",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns confirmation bool that the project image has been uploaded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
                 }
               }
             }
@@ -31843,6 +32903,100 @@
           },
           "404": {
             "description": "Server has not found anything matching the requested information."
+          }
+        }
+      }
+    },
+    "/{portfolioGuid}/projects/{projectId}/linkToERP/{erpProjectId}": {
+      "put": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Links a ProjectSight project to an ERP project",
+        "description": "Returns true if successful",
+        "operationId": "Project_LinkToERPProject",
+        "parameters": [
+          {
+            "name": "portfolioGuid",
+            "in": "path",
+            "description": "Portfolio GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "ProjectSight Project ID",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "erpProjectId",
+            "in": "path",
+            "description": "ERP Project ID from the erpProjects endpoint",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns true if the project was successfully linked"
+          },
+          "401": {
+            "description": "Unauthorized Access or Project already linked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Please contact your administrator for more details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResult"
+                }
+              }
+            }
           }
         }
       }
@@ -35698,112 +36852,6 @@
                   "items": {
                     "$ref": "#/components/schemas/WorkflowState"
                   }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized Access",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResult"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResult"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Server refuses to fulfill the request. Please check the error message for more details.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResult"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResult"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error. Please contact your administrator for more details.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResult"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResult"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{portfolioGuid}/{projectId}/rfis/{rfiId}/sharewithowner": {
-      "post": {
-        "tags": [
-          "RFI"
-        ],
-        "summary": "Shares the RFI with the Owner",
-        "description": "Initiates the process for sharing the RFI with the owner, assuming that all of the conditions for sharing are met.",
-        "operationId": "RFI_ShareWithOwner",
-        "parameters": [
-          {
-            "name": "portfolioGuid",
-            "in": "path",
-            "description": "Portfolio GUID",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "projectId",
-            "in": "path",
-            "description": "Project ID",
-            "required": true,
-            "schema": {
-              "minimum": 1,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "rfiId",
-            "in": "path",
-            "description": "RFI ID",
-            "required": true,
-            "schema": {
-              "minimum": 1,
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns the updated RFI.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RFI"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RFI"
                 }
               }
             }
@@ -44406,6 +45454,12 @@
             "format": "double",
             "readOnly": true
           },
+          "Hours": {
+            "type": "number",
+            "description": "The actual hours for payroll.",
+            "format": "double",
+            "readOnly": true
+          },
           "ProjectedCostUnitPrice": {
             "type": "number",
             "description": "ProjectedCost / ProjectedCostQuantity",
@@ -45750,6 +46804,12 @@
             "description": "This flag is intended for the use of AppXChange to indicate when a Budget snapshot record has been successfully integrated with the ERP",
             "readOnly": true
           },
+          "Hours": {
+            "type": "number",
+            "description": "The actual hours for payroll.",
+            "format": "double",
+            "readOnly": true
+          },
           "WorkflowStatePermissionLevel": {
             "type": "integer",
             "format": "int32",
@@ -46765,7 +47825,7 @@
             "format": "double",
             "readOnly": true
           },
-          "BdgtAppliedAmount": {
+          "RevenueAmount": {
             "type": "number",
             "format": "double",
             "readOnly": true
@@ -47405,26 +48465,6 @@
             "type": "boolean",
             "readOnly": true
           },
-          "Type": {
-            "enum": [
-              "None",
-              "Details",
-              "Comment",
-              "Resolution",
-              "KeyLinks"
-            ],
-            "type": "string",
-            "nullable": true
-          },
-          "VoiceMemoGUID": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true
-          },
-          "Promoted": {
-            "type": "boolean",
-            "readOnly": true
-          },
           "Comments": {
             "maxLength": 2147483647,
             "minLength": 1,
@@ -47439,6 +48479,21 @@
           "LastModifiedByContactID": {
             "type": "integer",
             "format": "int32",
+            "readOnly": true
+          },
+          "Type": {
+            "enum": [
+              "None",
+              "Details",
+              "Comment",
+              "Resolution",
+              "KeyLinks"
+            ],
+            "type": "string",
+            "nullable": true
+          },
+          "Promoted": {
+            "type": "boolean",
             "readOnly": true
           },
           "ProjectID": {
@@ -48926,6 +49981,11 @@
             "nullable": true
           },
           "PaidDate": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "DueDate": {
             "type": "string",
             "format": "date",
             "nullable": true
@@ -53570,6 +54630,11 @@
             "type": "boolean",
             "nullable": true
           },
+          "Override": {
+            "type": "boolean",
+            "description": "When enabled Quantity, UnitPrice, and subtotal will not be automatically recalculated",
+            "nullable": true
+          },
           "POItemID": {
             "type": "integer",
             "format": "int32",
@@ -53584,6 +54649,12 @@
           "POSubtotal": {
             "type": "number",
             "description": "The Balance from the linked PurchaseOrderItem at the time the PurchaseOrderItem was used to create this record",
+            "format": "double",
+            "readOnly": true
+          },
+          "CurrentPOSubTotal": {
+            "type": "number",
+            "description": "The current balance from the linked PurchaseOrderItem",
             "format": "double",
             "readOnly": true
           },
@@ -53607,6 +54678,18 @@
           "POQuantity": {
             "type": "number",
             "description": "The QuantityBalance from the linked PurchaseOrderItem at the time the PurchaseOrderItem was used to create this record",
+            "format": "double",
+            "readOnly": true
+          },
+          "CurrentPOQuantity": {
+            "type": "number",
+            "description": "The current QuantityBalance from the linked PurchaseOrderItem",
+            "format": "double",
+            "readOnly": true
+          },
+          "CurrentPOUnitPrice": {
+            "type": "number",
+            "description": "The current UnitPrice from the linked PurchaseOrderItem",
             "format": "double",
             "readOnly": true
           },
@@ -54202,6 +55285,12 @@
           "OriginID": {
             "maxLength": 100,
             "type": "string",
+            "nullable": true
+          },
+          "Hours": {
+            "type": "number",
+            "description": "The actual hours for payroll.",
+            "format": "double",
             "nullable": true
           },
           "ProjectID": {
@@ -55367,105 +56456,6 @@
         },
         "additionalProperties": {}
       },
-      "Message": {
-        "required": [
-          "Comments"
-        ],
-        "type": "object",
-        "properties": {
-          "TableType": {
-            "type": "integer",
-            "description": "Table Type 48",
-            "format": "int32",
-            "readOnly": true
-          },
-          "CommentID": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "GUID": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true
-          },
-          "DeleteRequested": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "Deleted": {
-            "type": "boolean",
-            "readOnly": true
-          },
-          "Type": {
-            "enum": [
-              "None",
-              "Initial",
-              "Acknowledge",
-              "Message",
-              "Result",
-              "DebugError"
-            ],
-            "type": "string",
-            "nullable": true
-          },
-          "Comments": {
-            "maxLength": 2147483647,
-            "minLength": 1,
-            "type": "string"
-          },
-          "LastModifiedByDisplayName": {
-            "maxLength": 255,
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "LastModifiedByContactID": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "ProjectID": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "WhenCreated": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "CreatedBy": {
-            "maxLength": 255,
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "CreatedByContactID": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "CreatedByDisplayName": {
-            "maxLength": 255,
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "LastModified": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "LastModifiedBy": {
-            "maxLength": 255,
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          }
-        },
-        "additionalProperties": {}
-      },
       "Notice": {
         "required": [
           "AuthorContactID",
@@ -55904,6 +56894,10 @@
             "type": "boolean",
             "readOnly": true
           },
+          "AIAssistant": {
+            "type": "boolean",
+            "readOnly": true
+          },
           "ContactSearchLimitToProject": {
             "type": "boolean",
             "readOnly": true
@@ -55975,6 +56969,69 @@
           }
         },
         "additionalProperties": {}
+      },
+      "PortfolioCopyFromTemplateRequest": {
+        "required": [
+          "Name",
+          "TemplatePortfolioID"
+        ],
+        "type": "object",
+        "properties": {
+          "Name": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The name of the new Portfolio"
+          },
+          "TemplatePortfolioID": {
+            "type": "string",
+            "description": "The primary key of the Portfolio the new Portfolio is to be copied from.",
+            "format": "uuid"
+          },
+          "CopySettings": {
+            "type": "boolean",
+            "description": "Should Portfolio Settings be copied from the template Portfolio?"
+          },
+          "CopyUsers": {
+            "type": "boolean",
+            "description": "Should Users be copied from the template Portfolio?\r\nIf Users are being copied SecurityRoles and Companies will also be copied."
+          },
+          "CopySecurityRoles": {
+            "type": "boolean",
+            "description": "Should Security Roles be copied from the template Portfolio?\r\nAlways true if CopyUsers is true\r\n///"
+          },
+          "CopyCompanies": {
+            "type": "boolean",
+            "description": "Should Companies be copied from the template Portfolio?\r\nAlways true if CopyUsers is true"
+          }
+        },
+        "additionalProperties": {},
+        "description": "Used to accept parameters used in creating a new Portfolio from a template"
+      },
+      "PortfolioCreateRequest": {
+        "required": [
+          "AccountID",
+          "Name"
+        ],
+        "type": "object",
+        "properties": {
+          "Name": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The name of the new Portfolio"
+          },
+          "AccountID": {
+            "type": "integer",
+            "description": "The primary key of the Account the Portfolio is to be created in.",
+            "format": "int32"
+          },
+          "LanguageRegion": {
+            "type": "string",
+            "description": "The two character region code for the language the portfolio should be created in.\r\nCurrent supported values:\r\nen - English\r\nnl - Dutch\r\nde - German\r\nfr - French\r\nes - Spanish (Mexican)",
+            "nullable": true
+          }
+        },
+        "additionalProperties": {},
+        "description": "Used to accept parameters used in creating a new Portfolio"
       },
       "PotentialCO": {
         "required": [
@@ -56124,6 +57181,11 @@
           "ChangeOrderID": {
             "type": "integer",
             "format": "int32",
+            "readOnly": true
+          },
+          "RevenueAmount": {
+            "type": "number",
+            "format": "double",
             "readOnly": true
           },
           "PCCONumber": {
@@ -56548,6 +57610,35 @@
           "CompanyName": {
             "maxLength": 100,
             "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "RevenueIncluded": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "RevenueMarkupPercent": {
+            "type": "number",
+            "description": "If RevenueIncluded, (1 - (BdgtAppliedAmount + RevenueMarkupAmount / BdgtAppliedAmount)) * 100, otherwise 0, If RevenueMarkupAmount is set to 0 and RevenueMarkupPercent is not, RevenueMarkupAmount will be automatically calculated.",
+            "format": "double",
+            "nullable": true
+          },
+          "RevenueAmount": {
+            "type": "number",
+            "description": "BdgtAppliedAmount + RevenueMarkupAmount",
+            "format": "double",
+            "readOnly": true
+          },
+          "RevenueMarkupAmount": {
+            "type": "number",
+            "description": "If RevenueIncluded, BdgtAppliedAmount * RevenueMarkupPercent, otherwise 0, If RevenueMarkupPercent is set to 0 and RevenueMarkupAmount is not, RevenueMarkupPercent will be automatically calculated.",
+            "format": "double",
+            "nullable": true
+          },
+          "RevenueContractItem": {
+            "maxLength": 564,
+            "type": "string",
+            "description": "Based on SofVItemId associated with selected budget code: [Contract.Number]-[ContractSchedOfValues.ItemNumber] - [ContractSchedOfValues.Description]",
             "nullable": true,
             "readOnly": true
           },
@@ -57082,7 +58173,7 @@
             "nullable": true,
             "readOnly": true
           },
-          "BdgtAppliedAmount": {
+          "RevenueAmount": {
             "type": "number",
             "format": "double",
             "readOnly": true
@@ -57961,6 +59052,11 @@
           "LicenseForNewTCProject": {
             "type": "string",
             "description": "If a new Trimble Connect project is to be created when this project is created this property will specify the license to be used for the new Trimble Connect Project.\r\nValid values are the Display Name of the license, the Account Id of the license, the license identifier (Guid), or Default.\r\nDefault is only required when the Portfolio that the Project is being created in does not require all new ProjectSight Projects to be linked to a Trimble Connect Project.\r\nIf this is set to a value other than Default, it must be a valid Trimble Connect license accessible to the requesting user.\r\nIf this is not set or set to Default and a new Trimble Connect project is created, the Account associated with the Portfolio the project is being created in must have\r\na Trimble Connect Enterprise License Key set.",
+            "nullable": true
+          },
+          "ExistingTCProjectID": {
+            "type": "string",
+            "description": "The existing Trimble Connect project ID to link to the new project.",
             "nullable": true
           },
           "Project": {
@@ -59351,24 +60447,10 @@
             },
             "nullable": true
           },
-          "OwnerRecordLinks": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RecordLink"
-            },
-            "nullable": true
-          },
           "RecordComments": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Comment"
-            },
-            "nullable": true
-          },
-          "OwnerMessages": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Message"
             },
             "nullable": true
           },
@@ -59387,13 +60469,6 @@
             "nullable": true
           },
           "FileLinks": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/FileLink"
-            },
-            "nullable": true
-          },
-          "OwnerFileLinks": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/FileLink"
@@ -60702,6 +61777,10 @@
             "type": "boolean",
             "nullable": true
           },
+          "IsAutoGenerated": {
+            "type": "boolean",
+            "readOnly": true
+          },
           "IsPhysicalSubmittal": {
             "type": "boolean",
             "nullable": true
@@ -61093,6 +62172,10 @@
           "IsClosed": {
             "type": "boolean",
             "nullable": true
+          },
+          "IsAutoGenerated": {
+            "type": "boolean",
+            "readOnly": true
           },
           "Number": {
             "maxLength": 30,
@@ -62308,6 +63391,10 @@
             "type": "boolean",
             "readOnly": true
           },
+          "MarketingConsent": {
+            "type": "boolean",
+            "readOnly": true
+          },
           "LastActivityDate": {
             "type": "string",
             "nullable": true,
@@ -62400,6 +63487,32 @@
           },
           "IsDefault": {
             "type": "boolean",
+            "nullable": true
+          },
+          "CanInviteTeamMemberFromAnyCompany": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "CanInviteTeamMemberFromTheirCompany": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "CanInviteTeamMemberFromAllRoles": {
+            "enum": [
+              "None",
+              "Some",
+              "All"
+            ],
+            "type": "string",
+            "nullable": true
+          },
+          "CanRemoveTeamMemberFromAllRoles": {
+            "enum": [
+              "None",
+              "Some",
+              "All"
+            ],
+            "type": "string",
             "nullable": true
           },
           "WhenCreated": {
